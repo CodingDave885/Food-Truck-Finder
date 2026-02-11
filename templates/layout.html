@@ -21,24 +21,14 @@
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href={{ url_for("home") }}>Home</a>
+            </li>
+            <li class ="nav-item">
+                <a class="nav-link active" aria-current="page" href={{ url_for("info") }}>Alex's Page</a>
+            </li>
           </ul>
         </div>
       </div>
     </nav>
-  <div class="container mt-5"> <div class="row justify-content-center">
-        <div class="col-md-8"> <h3 class="text-center">Foodtruck Map @ Drexel</h3>
-            <div id="map"></div>
-        </div>
-    </div>
-  </div>
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    var map = L.map('map').setView([39.9566, -75.1899], 16.5)
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
-  </script>
     {% block content %}{% endblock %}
 </body>
 </html>
