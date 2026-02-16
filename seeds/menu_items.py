@@ -6,7 +6,7 @@ def seed_menu_items():
     # Opens the menu items csv and makes it the reader
     with open("data/menu_items.csv", newline="", encoding="latin-1") as file:
         reader = csv.DictReader(file)
-        # Turns it into a list and then adds it to the db
+        # Turns it into a dictionary and then adds it to the db
         items = [
             MenuItem(
                 name=row["name"],

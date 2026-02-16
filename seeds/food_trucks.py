@@ -6,10 +6,11 @@ def seed_food_trucks():
     # This is needed to use the db methods
     with app.app_context():
         # Opens the food_truck csv file
+        # newline="" corrects the csv handling
         with open("data/food_trucks.csv", newline="", encoding="latin-1") as file:
             reader = csv.DictReader(file)
 
-            #Turns it into a list of items, and then adds it to the DB
+            #Turns it into a dictionary of items, and then adds it to the DB
             items = [
                 FoodTruck(
                     name=row["name"],
@@ -19,12 +20,14 @@ def seed_food_trucks():
                     description=row["description"]
 
             )
+                # This loops through every CSV row, and skips every empty row
                 for row in reader
                 if row["name"]
             ]
 
-            # Commits to the db so it saves
+            # This stages all the objects for insertion
             db.session.bulk_save_objects(items)
+            # Commits to the db so it saves
             db.session.commit()
 
             print("Data imported successfully!")
