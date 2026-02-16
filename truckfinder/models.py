@@ -10,6 +10,7 @@ class FoodTruck(db.Model):
     # Lat and Long for the Leaflet map
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
+    description = db.Column(db.Text, nullable=False)
     # This makes a relationship with the Menu Item
     # One food truck has many items, this doesn't show up as a column though
     menu_items = db.relationship('MenuItem', backref='truck', lazy=True)
