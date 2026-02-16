@@ -2,6 +2,8 @@ from truckfinder import app, db
 from seeds.food_trucks import seed_food_trucks
 from seeds.menu_items import seed_menu_items
 
+# This is only ran if seed.py is the main file
+# This file is for updating our DB according to the csv file
 if __name__ == "__main__":
     with app.app_context():
         print("Resetting database...")
