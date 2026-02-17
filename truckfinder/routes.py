@@ -8,11 +8,11 @@ def home():
 
 @app.route('/map')
 def map_page():
-    return render_template('Map.html')
+    return render_template('Map.html', title="Map")
 
 @app.route('/about')
 def about():
-    return render_template('About.html')
+    return render_template('About.html', title="About")
 
 # This route leads you to Alex's page that he made saying food truck information
 @app.route("/helper")

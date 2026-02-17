@@ -1,23 +1,5 @@
+{%extends "layout.html"%}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/styles.css">
-    <title>Home</title>
-</head>
-<body>
-    <nav>
-        <div class="logo">Foodtruck Finder</div>
-        <ul class="nav-links">
-            <li><a href="{{ url_for('home')}}">Home</a></li>
-            <li><a href="{{ url_for('map_page')}}">Map</a></li>
-            <li><a href="{{ url_for('about') }}">About</a></li>
-        </ul>
-    </nav>
-
-
     <div class="hero">
         <div class="hero-text">
         <h1>
@@ -45,7 +27,4 @@
 </div>
 <div>
 </div>
-
-</body>
-</html>
 {% endblock %}
