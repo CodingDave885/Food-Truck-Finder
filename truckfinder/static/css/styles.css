@@ -271,3 +271,35 @@ p2 {
     height: 100vh
 }
 
+#menu-panel {
+  color: #000; /* black */
+  position: fixed; /* Panel stays in place when scrolling */
+  top: 0;
+  right: -400px; /* The panel is off screen when not called upon */
+  width: 400px;
+  height: 100%;
+  background: white;
+  /*
+  The -20px gives it a slight shadow on the left side of the box
+  The 10px says how blurry it is
+  The shadow is black, and has a transparency of 80%
+  */
+  box-shadow: -20px 0 10px rgba(0,0,0,0.2);
+  transition: right 0.3s ease; /*Smooth animation from the left */
+  /*This allows teh element to appear on top of the other page*/
+  z-index: 1000;
+  overflow-y: auto; /* Allows scrolling */
+  padding: 20px;
+}
+/* When the panel opens, it slides onto the right */
+#menu-panel.open {
+  right: 0;
+}
+
+#close-menu {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
