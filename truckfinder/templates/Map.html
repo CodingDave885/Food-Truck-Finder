@@ -1,17 +1,112 @@
 {%extends "layout.html"%}
 {%block content%}
+<!--
+This is the menu panel that is used for the menu
+It is invisible at first, and then become visible when
+you ask for it when you are on the food truck
+-->
+<!--
+The menu panel makes a container for the side panel
+-->
+<div id="menu-panel">
+    <!--
+    The close menu button is an x for the user to press
+    -->
+  <button id="close-menu">✕</button>
+    <!--
+    This makes an empty div to later put the HTML in later
+    -->
+  <div id="menu-content"></div>
+</div>
 
 <div id="map"></div>
-
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
+        // Go look through the HTML and give me the element whose id is equal to menu panel
+        const menuPanel = document.getElementById("menu-panel");
+        // Does this with all of it, and then stores it in these variables
+        const menuContent = document.getElementById("menu-content");
+        const closeBtn = document.getElementById("close-menu");
 
+        // This adds the open class to the panel
+        function openMenuPanel() {
+          menuPanel.classList.add("open");
+        }
+
+        // Removes the open class, goes back to default
+        function closeMenuPanel() {
+          menuPanel.classList.remove("open");
+        }
+
+        // When the user clicks the x, the panel closes
+        closeBtn.addEventListener("click", closeMenuPanel);
+
+        function showMenu(truckId) {
+          //Calls the open panel function
+          openMenuPanel();
+          // This is only temporary text while it is fetching the data
+          menuContent.innerHTML = "<p>Loading...</p>";
+          // Sends a request to the route number
+          fetch(`/api/trucks/${truckId}/menu`)
+            // Converts teh JSON into JS objects
+            .then(res => res.json())
+            //Passes menu items to renderer
+            .then(data => renderMenu(data));
+        }
+        function renderMenu(items) {
+          // If we didn't import the menu yet, it will say it isn't available
+          // This is better than having blank text
+          if (items.length === 0) {
+            menuContent.innerHTML = "<p>No menu available.</p>";
+            return;
+          }
+          // Empty String to build
+          let html = "";
+          // Loops over each menu item
+          items.forEach(item => {
+            // Builds HTML using menu data
+            html += `
+              <div class="menu-item">
+                <h4>${item.name} — $${item.price}</h4>
+              </div>
+            `;
+          });
+          // Injects HTML into the panel
+          menuContent.innerHTML = html;
+}
         var map = L.map('map').setView([39.9566, -75.1899], 16.5);
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
+
+        // Fetch trucks from backend
+        fetch('/api/food_trucks')
+            // Fetch returns something called a promise
+            // This bascally converts the raw HTTP response into usable JS data
+            .then(response => response.json())
+            // This then returns actual data
+            .then(data => {
+                // This loops through every truck
+                data.forEach(truck => {
+                    // Creates the leaflet marker
+                    L.marker([truck.latitude, truck.longitude])
+                        // This actually adds it to the map
+                        .addTo(map)
+                        // Creates the popup of the marker
+                        .bindPopup(`
+                            <h3>${truck.name}</h3>
+                            <p>${truck.description}</p>
+                            <!--
+                            Calls showMenu(), and passes the truck's db
+                            -->
+                            <button onclick="showMenu(${truck.id})">
+                                MENU
+                            </button>
+                        `);
+                });
+            });
 
         function onMapClick(e) {
             L.popup()
