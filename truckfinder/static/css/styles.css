@@ -331,7 +331,6 @@ body, html {
 .hero-text p1, 
 .hero-text p2, 
 .hero-image,
-.drexel-pin,
 .hero-text form {
     opacity: 0; 
     animation: fadeInUp 0.8s ease-out forwards;
