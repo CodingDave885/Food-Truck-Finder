@@ -76,7 +76,9 @@ The menu panel makes a container for the side panel
 }
         var map = L.map('map', {
           zoomControl: false,
-          attributionControl: false
+          attributionControl: false,
+          zoomAnimation: true,
+          fadeAnimation: true,
         }).setView([39.9566, -75.1899], 16.5);
 
         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
@@ -85,7 +87,7 @@ The menu panel makes a container for the side panel
 
         map.locate({
         watch: true, 
-        enableHighAccuracy: true
+        enableHighAccuracy: true,
         });
 
         // Fetch trucks from backend
@@ -152,5 +154,6 @@ map.on('locationfound', (e) => {
         }
 
         map.on('locationerror', onLocationError);
+
     </script>
 {%endblock%}
