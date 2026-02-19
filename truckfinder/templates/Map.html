@@ -83,6 +83,11 @@ The menu panel makes a container for the side panel
             maxZoom: 19,
         }).addTo(map);
 
+        map.locate({
+        watch: true, 
+        enableHighAccuracy: true
+        });
+
         // Fetch trucks from backend
         fetch('/api/food_trucks')
             // Fetch returns something called a promise
@@ -118,5 +123,34 @@ The menu panel makes a container for the side panel
         }
 
         map.on('click', onMapClick);
+
+        function onLocationFound(e) {
+          const radius = e.accuracy / 2;
+
+          L.marker(e.latlng).addTo(map)
+            .bindPopup("You are here").openPopup();
+
+          L.circle(e.latlng, radius).addTo(map);
+        }
+
+        let userMarker, accuracyCircle;
+
+map.on('locationfound', (e) => {
+    const radius = e.accuracy / 2;
+    if (!userMarker) {
+        userMarker = L.marker(e.latlng).addTo(map);
+        accuracyCircle = L.circle(e.latlng, radius).addTo(map);
+    } else {
+        userMarker.setLatLng(e.latlng);
+        accuracyCircle.setLatLng(e.latlng);
+        accuracyCircle.setRadius(radius);
+    }
+});
+
+        function onLocationError(e) {
+        alert(e.message);
+        }
+
+        map.on('locationerror', onLocationError);
     </script>
 {%endblock%}
