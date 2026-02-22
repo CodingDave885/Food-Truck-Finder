@@ -331,6 +331,9 @@ body, html {
 .hero-text p1, 
 .hero-text p2, 
 .hero-image,
+.team-member-img,
+.team-container,
+.team-section,
 .hero-text form {
     opacity: 0; 
     animation: fadeInUp 0.8s ease-out forwards;
@@ -355,4 +358,66 @@ body, html {
 .hero-image {
   animation-delay: 1.6s;
 }
+
+.team-member-img {
+  animation-delay: 1s;
+}
+
+.team-container {
+  animation-delay: 0.7s;
+}
+
+.team-section {
+  animation-delay: 0.4;
+}
+
+.team-row {
+    display: flex;
+    flex-direction: row;      
+    justify-content: center;   
+    align-items: flex-start;  
+    gap: 20px;               
+    width: 100%;
+    max-width: 1200px;       
+    margin: 0 auto;            
+}
+
+.team-section {
+    text-align: center;
+    padding: 80px 20px;
+    width: 100%;
+}
+
+.team-container {
+    display: flex;
+    justify-content: center; 
+    flex-wrap: wrap;         
+    gap: 40px;               
+    margin-top: 40px;
+}
+
+.team-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    max-width: 200px;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.team-card:nth-child(1) { animation-delay: 0.2s; }
+.team-card:nth-child(2) { animation-delay: 0.4s; }
+.team-card:nth-child(3) { animation-delay: 0.6s; }
+.team-card:nth-child(4) { animation-delay: 0.8s; }
+
+.team-member-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #80CED7;
+  margin-bottom: 15px;
+  display: block;
+}
+
 
