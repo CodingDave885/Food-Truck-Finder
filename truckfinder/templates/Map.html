@@ -19,9 +19,14 @@ The menu panel makes a container for the side panel
   <div id="menu-content"></div>
 </div>
 
+<div id="routing-instructions">Select a truck to start navigating...</div>
 <div id="map"></div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
     <script>
+
+      let routingControl = null;
+      let trackedTruckId = null;
 
       const customIcon = L.icon({
       iconUrl: '/static/images/unsaturated.png',   
@@ -121,10 +126,78 @@ The menu panel makes a container for the side panel
                             <button onclick="showMenu(${truck.id})">
                                 MENU
                             </button>
+                            <button onclick="startTracking(${truck.id}, ${truck.latitude}, ${truck.longitude})">
+                            TRACK
+                            </button>
                         `);
                 });
             });
 
+    const instructionBox = document.getElementById('routing-instructions');
+
+function startTracking(truckId, truckLat, truckLng) {
+    if (!userMarker) {
+        alert("Wait a second, still finding your location...");
+        return;
+    }
+    if (trackedTruckId === truckId) {
+    if (routingControl) {
+        map.removeControl(routingControl);
+        routingControl = null;
+        trackedTruckId = null;
+        instructionBox.style.display = 'none';
+    }
+    return;
+}
+
+    if (routingControl) {
+        map.removeControl(routingControl);
+    }
+
+    routingControl = L.Routing.control({
+      waypoints: [
+          userMarker.getLatLng(), 
+          L.latLng(truckLat, truckLng)
+      ],
+      router: L.Routing.osrmv1({
+        serviceUrl: 'https://router.project-osrm.org/route/v1',
+        profile: 'foot'
+    }),
+      lineOptions: {
+          styles: [{ color: '#8cbaee', weight: 6, opacity: 0.8 }]
+      },  
+      addWaypoints: false,
+      draggableWaypoints: false,
+  
+      show: false, 
+      itinerary: false, 
+    
+    createMarker: function() { return null; } 
+}).addTo(map);
+    routingControl.on('routesfound', function(e) {
+        const routes = e.routes;
+        const summary = routes[0].summary; 
+        const instructions = routes[0].instructions;
+        
+        if (instructions && instructions.length > 0) {
+            instructionBox.style.display = 'block';
+          
+            const metersToMiles = 0.000621371;
+            const totalMiles = (summary.totalDistance * metersToMiles).toFixed(2);
+          
+            const nextStep = instructions[0];
+            const nextStepMiles = (nextStep.distance * metersToMiles).toFixed(2);
+        
+            const walkTimeMinutes = Math.round(summary.totalTime / 5);
+
+instructionBox.innerHTML = `
+    <small style="color: #888; display: block;">${walkTimeMinutes} min walk</small>
+    <strong>${nextStep.text}</strong> 
+    <span style="color: #fff; margin-left: 10px;">${totalMiles} mi left</span>
+`;
+        }
+    });
+}
         function onMapClick(e) {
             L.popup()
                 .setLatLng(e.latlng)
@@ -154,6 +227,23 @@ map.on('locationfound', (e) => {
         userMarker.setLatLng(e.latlng);
         accuracyCircle.setLatLng(e.latlng);
         accuracyCircle.setRadius(radius);
+        if (routingControl) {
+            const currentWaypoints = routingControl.getWaypoints();
+            routingControl.setWaypoints([
+                e.latlng, 
+                currentWaypoints[1].latLng
+            ]);
+        }
+    }
+    if (routingControl && trackedTruckId !== null) {
+        const currentWaypoints = routingControl.getWaypoints();
+        const oldPos = currentWaypoints[0].latLng;
+        if (oldPos.distanceTo(e.latlng) > 5) {
+            routingControl.setWaypoints([
+                e.latlng, 
+                currentWaypoints[1].latLng
+            ]);
+        }
     }
 });
 
