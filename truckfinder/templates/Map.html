@@ -22,6 +22,14 @@ The menu panel makes a container for the side panel
 <div id="map"></div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
+
+      const customIcon = L.icon({
+      iconUrl: '/static/images/unsaturated.png',   
+      iconSize: [40, 40],                        
+      iconAnchor: [20, 40],                   
+      popupAnchor: [0, -40],                      
+  });
+
         // Go look through the HTML and give me the element whose id is equal to menu panel
         const menuPanel = document.getElementById("menu-panel");
         // Does this with all of it, and then stores it in these variables
@@ -100,7 +108,7 @@ The menu panel makes a container for the side panel
                 // This loops through every truck
                 data.forEach(truck => {
                     // Creates the leaflet marker
-                    L.marker([truck.latitude, truck.longitude])
+                    L.marker([truck.latitude, truck.longitude], {icon: customIcon })
                         // This actually adds it to the map
                         .addTo(map)
                         // Creates the popup of the marker
