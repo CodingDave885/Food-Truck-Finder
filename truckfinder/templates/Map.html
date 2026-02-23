@@ -28,12 +28,22 @@ The menu panel makes a container for the side panel
       let routingControl = null;
       let trackedTruckId = null;
 
-      const customIcon = L.icon({
+      // This is the icon if the truck is open
+      const openIcon = L.icon({
       iconUrl: '/static/images/unsaturated.png',   
       iconSize: [40, 40],                        
       iconAnchor: [20, 40],                   
       popupAnchor: [0, -40],                      
   });
+
+      // This is the icon if the truck is closed
+      // It is the gray version of the opened one
+      const closedIcon = L.icon({
+      iconUrl: '/static/images/saturated.png',
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+      popupAnchor: [0, -40],
+      });
 
         // Go look through the HTML and give me the element whose id is equal to menu panel
         const menuPanel = document.getElementById("menu-panel");
@@ -103,15 +113,67 @@ The menu panel makes a container for the side panel
         enableHighAccuracy: true,
         });
 
+        // This is going to be used as a simple lookup table
+        // It is in this order bc 0 = Monday and 6 = Saturday
+        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+        // This function basically gets around Monday being 0 and Saturday being the last day
+        // It allows the hours to be listed from Sunday to Saturday now
+        // datetime.weekday() returns 0 as Monday, JS returns Monday as 1
+        // So this converts it when you use it in JS
+        function jsDayFromPython(pythonDay) {
+            return (pythonDay + 1) % 7;
+        }
+
+        //hours is an array of the days of the week and the open / closing times
+        function buildHoursList(hours) {
+            // This gets today's day according to JS
+            const today = new Date().getDay(); // JS: Sun=0
+
+            // Sorts it so today appears first
+            // Creates a copy of hours so we don't mutate the original
+            // a and b are being compared
+            // It returns a negative number if a comes before b
+            // It returns a positive number if a comes after b
+            const sorted = [...hours].sort((a, b) => {
+                // If a is today, return -1 and move a up
+                // Otherwise return 1 and move a down
+                // This allows today to be the top day
+                return jsDayFromPython(a.day_of_week) === today ? -1 : 1;
+            });
+          // Sorted is an array of the days sorted from today onward
+          return sorted
+                .map(h => {
+                    // Converts teh python weekday into JS weekday
+                    const jsDay = jsDayFromPython(h.day_of_week);
+                    // This just returns if today is the day that it says it is
+                    // Marks the day to bold in the return statement
+                    const isToday = jsDay === today;
+
+                    return `
+                        <!-- Bolds Today -->
+                        <li ${isToday ? 'style="font-weight: bold;"' : ""}>
+                        ${isToday ? "" : ""}
+                        ${days[jsDay]}:
+                        ${h.open_time} – ${h.close_time}
+                        </li>
+                    `;
+                })
+                .join("");
+            }
         // Fetch trucks from backend
         fetch('/api/food_trucks')
             // Fetch returns something called a promise
-            // This bascally converts the raw HTTP response into usable JS data
+            // This basically converts the raw HTTP response into usable JS data
             .then(response => response.json())
             // This then returns actual data
             .then(data => {
                 // This loops through every truck
                 data.forEach(truck => {
+
+                    // This sets the icon to either opened or closed
+                    const customIcon = truck.is_open ? openIcon : closedIcon;
+
                     // Creates the leaflet marker
                     L.marker([truck.latitude, truck.longitude], {icon: customIcon })
                         // This actually adds it to the map
@@ -119,7 +181,19 @@ The menu panel makes a container for the side panel
                         // Creates the popup of the marker
                         .bindPopup(`
                             <h3>${truck.name}</h3>
-                            <p>${truck.description}</p>
+
+                            <p>
+                                <strong>Status:</strong>
+                                <!--If it is opened, do the first option
+                                If it is closed, do the second option-->
+                                ${truck.is_open ? " 🟢 Open now" : "🔴 Closed"}
+                            </p>
+
+                            <p><strong>Hours:</strong></p>
+                            <ul>
+                                ${buildHoursList(truck.hours)}
+                            </ul>
+                            <br>
                             <!--
                             Calls showMenu(), and passes the truck's db
                             -->

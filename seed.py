@@ -1,6 +1,7 @@
 from truckfinder import app, db
 from seeds.food_trucks import seed_food_trucks
 from seeds.menu_items import seed_menu_items
+from seeds.food_truck_hours import seed_food_truck_hours
 
 # This is only ran if seed.py is the main file
 # This file is for updating our DB according to the csv file
@@ -16,6 +17,7 @@ if __name__ == "__main__":
         # Calls both functions so it is both made in the db
         seed_food_trucks()
         seed_menu_items()
+        seed_food_truck_hours()
 
         # Prints this message when done
         print("Database reset and seeded successfully!")
