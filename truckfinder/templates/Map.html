@@ -211,17 +211,17 @@ The menu panel makes a container for the side panel
 
 function startTracking(truckId, truckLat, truckLng) {
     if (!userMarker) {
-        alert("Wait a second, still finding your location...");
+        alert("Trying to find your location.");
         return;
     }
     if (trackedTruckId === truckId) {
-    if (routingControl) {
-        map.removeControl(routingControl);
-        routingControl = null;
-        trackedTruckId = null;
-        instructionBox.style.display = 'none';
-    }
-    return;
+        if (routingControl) {
+            map.removeControl(routingControl);
+            routingControl = null;
+            trackedTruckId = null;
+            instructionBox.style.display = 'none';
+        }
+        return;
 }
 
     if (routingControl) {
@@ -257,10 +257,10 @@ function startTracking(truckId, truckLat, truckLng) {
             instructionBox.style.display = 'block';
           
             const metersToMiles = 0.000621371;
-            const totalMiles = (summary.totalDistance * metersToMiles).toFixed(2);
+            const totalMiles = (summary.totalDistance * metersToMiles).toFixed();
           
             const nextStep = instructions[0];
-            const nextStepMiles = (nextStep.distance * metersToMiles).toFixed(2);
+            const nextStepMiles = (nextStep.distance * metersToMiles).toFixed();
         
             const walkTimeMinutes = Math.round(summary.totalTime / 5);
 
