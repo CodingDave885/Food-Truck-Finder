@@ -331,9 +331,11 @@ body, html {
 .hero-text p1, 
 .hero-text p2, 
 .hero-image,
+.about-us-img,
 .team-member-img,
 .team-container,
 .team-section,
+.routing-instructions,
 .hero-text form {
     opacity: 0; 
     animation: fadeInUp 0.8s ease-out forwards;
@@ -341,6 +343,10 @@ body, html {
 
 .hero-text h1 {
     animation-delay: 0.3s;
+}
+
+.about-us-img {
+  animation-delay: 1s;
 }
 
 .hero-text p1 {
@@ -364,7 +370,7 @@ body, html {
 }
 
 .team-container {
-  animation-delay: 0.7s;
+  animation-delay: 0.4s;
 }
 
 .team-section {
@@ -430,9 +436,8 @@ body, html {
     color: white;
     padding: 15px 25px;
     border-radius: 30px;
-    font-family: sans-serif;
     border: 1px solid #8cbaee;
-    display: none; 
+    display: center; 
     text-align: center;
     min-width: 250px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
