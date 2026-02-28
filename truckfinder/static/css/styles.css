@@ -1,24 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap');   
-
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap");
+/*CSS is honestly plain english you can understand all of this extremely easily*/
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Manrope', sans-serifs;
-    height: 100vh;
-    background-color: #1b1b1b;
-    padding-bottom: 60px;
+  font-family: "Manrope", sans-serifs;
+  height: 100vh;
+  background-color: #1b1b1b;
+  padding-bottom: 60px;
 
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 
-    color: #fff;
-    background: fixed
-      linear-gradient(#2b2b2b, #2b2b2b 6px, transparent 6px, transparent),
+  color: #fff;
+  background:
+    fixed linear-gradient(#2b2b2b, #2b2b2b 6px, transparent 6px, transparent),
     fixed linear-gradient(transparent, #050505 70%),
     fixed
       repeating-linear-gradient(
@@ -36,8 +36,6 @@ body {
         transparent 40px
       )
       #070707;
-
-   
 }
 
 nav {
@@ -55,18 +53,17 @@ nav {
   z-index: 999;
 }
 
-
 .logo {
   font-size: 1.8rem;
   font-weight: 700;
   color: #fbe331;
-  letter-spacing: 1px
+  letter-spacing: 1px;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 2rem
+  gap: 2rem;
 }
 
 .nav-links li a {
@@ -80,7 +77,7 @@ nav {
 
 .nav-links li a:hover {
   color: #fbe331;
-  text-shadow: 0 0 10px #fbe331
+  text-shadow: 0 0 10px #fbe331;
 }
 
 .span-container {
@@ -90,10 +87,10 @@ nav {
 
 .drexel-pin {
   position: absolute;
-  top: 15px;                 
+  top: 15px;
   left: 100%;
   transform: translateX(-50%);
-  background: #00c2ff;       
+  background: #00c2ff;
   color: white;
   font-size: 10px;
   padding: 2px 4px;
@@ -111,7 +108,7 @@ nav {
   transform: translateX(-50%);
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-bottom: 6px solid #00c2ff
+  border-bottom: 6px solid #00c2ff;
 }
 
 .hero {
@@ -137,60 +134,60 @@ nav {
 }
 
 h1 {
-    color: #F4F4ED; 
-    font-size: 43px;
-    font-weight: 500;
-    margin-bottom: 20px;
+  color: #f4f4ed;
+  font-size: 43px;
+  font-weight: 500;
+  margin-bottom: 20px;
 }
 
 p1 {
-    color: #F4F4ED;
-    font-size: 18px;
-    line-height: 1.6;
-    font-size: 18px;
+  color: #f4f4ed;
+  font-size: 18px;
+  line-height: 1.6;
+  font-size: 18px;
 }
 
 p2 {
-    color: #F4F4ED;
-    font-size: 15px;
-    line-height: 1.6;
-    font-size: 18px;
+  color: #f4f4ed;
+  font-size: 15px;
+  line-height: 1.6;
+  font-size: 18px;
 }
 
 .highlight {
-    color: #80CED7;
-    text-shadow: 0 3px 20px #80CED7;
+  color: #80ced7;
+  text-shadow: 0 3px 20px #80ced7;
 }
 
 .strike {
-    text-decoration: line-through;
-    text-decoration-thickness: 3px;
-    text-decoration-color: rgb(252, 215, 56, 0.5);
-    position: relative;
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
+  text-decoration-color: rgb(252, 215, 56, 0.5);
+  position: relative;
 
-    text-shadow: 0 0px 2px rgb(252, 215, 56, 0.5);
+  text-shadow: 0 0px 2px rgb(252, 215, 56, 0.5);
 }
 
 .buttonc:active {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 .fill-btn {
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 
-    padding: 12px 28px;
-    font-size: 15px;
-    font-weight: 500;
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 500;
 
-    background: transparent;
-    color: #8fdce3;
+  background: transparent;
+  color: #8fdce3;
 
-    border: 1.5px solid #8fdce3;
-    border-radius: 6px;
+  border: 1.5px solid #8fdce3;
+  border-radius: 6px;
 
-    cursor: pointer;
-    box-shadow: 0 0px 20px rgb(82, 144, 182);
+  cursor: pointer;
+  box-shadow: 0 0px 20px rgb(82, 144, 182);
 }
 
 .fill-btn::before {
@@ -221,60 +218,53 @@ p2 {
 }
 
 .wave {
-    display: inline-block;
-    animation: float 2s ease-in-out infinite;
-    text-shadow: 0 0px 10px rgb(255, 208, 0);
+  display: inline-block;
+  animation: float 2s ease-in-out infinite;
+  text-shadow: 0 0px 10px rgb(255, 208, 0);
 }
 
 .hero-image {
-    animation: shuffle 2s ease-in-out infinite;
-    
+  animation: shuffle 2s ease-in-out infinite;
 }
 
-
 @keyframes float {
-
-    0% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-6px);
-    }
-    100% {
-        transform: translateY(0);
-    }
-    
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 @keyframes shuffle {
-
-    0% {
-        transform: translateX(0);
-    }
-    50% {
-        transform: translateX(-2px)
-    }
-    100% {
-        transform: translateX(0);
-    }
-
-    
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .underline_class {
-    text-decoration-thickness: 2.5px;
-    text-decoration-color: rgb(235, 227, 111, 0.6)
+  text-decoration-thickness: 2.5px;
+  text-decoration-color: rgb(235, 227, 111, 0.6);
 }
 
 #map {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1; 
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 #menu-panel {
@@ -290,7 +280,7 @@ p2 {
   The 10px says how blurry it is
   The shadow is black, and has a transparency of 80%
   */
-  box-shadow: -20px 0 10px rgba(0,0,0,0.2);
+  box-shadow: -20px 0 10px rgba(0, 0, 0, 0.2);
   transition: right 0.3s ease; /*Smooth animation from the left */
   /*This allows teh element to appear on top of the other page*/
   z-index: 1000;
@@ -309,27 +299,27 @@ p2 {
   cursor: pointer;
 }
 
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   height: 100%;
 }
 
-
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.hero-text h1, 
-.hero-text p1, 
-.hero-text p2, 
+.hero-text h1,
+.hero-text p1,
+.hero-text p2,
 .hero-image,
 .about-us-img,
 .team-member-img,
@@ -337,12 +327,12 @@ body, html {
 .team-section,
 .routing-instructions,
 .hero-text form {
-    opacity: 0; 
-    animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
 }
 
 .hero-text h1 {
-    animation-delay: 0.3s;
+  animation-delay: 0.3s;
 }
 
 .about-us-img {
@@ -350,15 +340,15 @@ body, html {
 }
 
 .hero-text p1 {
-    animation-delay: 0.6s;
+  animation-delay: 0.6s;
 }
 
 .hero-text p2 {
-    animation-delay: 0.9s;
+  animation-delay: 0.9s;
 }
 
 .hero-text form {
-    animation-delay: 1.2s;
+  animation-delay: 1.2s;
 }
 
 .hero-image {
@@ -378,73 +368,79 @@ body, html {
 }
 
 .team-row {
-    display: flex;
-    flex-direction: row;      
-    justify-content: center;   
-    align-items: flex-start;  
-    gap: 20px;               
-    width: 100%;
-    max-width: 1200px;       
-    margin: 0 auto;            
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .team-section {
-    text-align: center;
-    padding: 80px 20px;
-    width: 100%;
+  text-align: center;
+  padding: 80px 20px;
+  width: 100%;
 }
 
 .team-container {
-    display: flex;
-    justify-content: center; 
-    flex-wrap: wrap;         
-    gap: 40px;               
-    margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-top: 40px;
 }
 
 .team-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    max-width: 200px;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-out forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 200px;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
 }
 
-.team-card:nth-child(1) { animation-delay: 0.2s; }
-.team-card:nth-child(2) { animation-delay: 0.4s; }
-.team-card:nth-child(3) { animation-delay: 0.6s; }
-.team-card:nth-child(4) { animation-delay: 0.8s; }
+.team-card:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.team-card:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.team-card:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.team-card:nth-child(4) {
+  animation-delay: 0.8s;
+}
 
 .team-member-img {
   width: 150px;
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #80CED7;
+  border: 3px solid #80ced7;
   margin-bottom: 15px;
   display: block;
 }
 
 #routing-instructions {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 15px 25px;
-    border-radius: 30px;
-    border: 1px solid #8cbaee;
-    display: center; 
-    text-align: center;
-    min-width: 250px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 30px;
+  border: 1px solid #8cbaee;
+  display: center;
+  text-align: center;
+  min-width: 250px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
 .leaflet-routing-container {
-    display: none !important;
+  display: none !important;
 }
-
-

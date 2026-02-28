@@ -19,17 +19,17 @@ The menu panel makes a container for the side panel
   <div id="menu-content"></div>
 </div>
 
-<div id="routing-instructions">Select a truck to start navigating...</div>
+<div id="routing-instructions">Select a truck to start navigating...</div> <!--Head div, shows the little pill on the bottom routing-instructions is the class name-->
 <div id="map"></div>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> <!-- Import leaflet -->
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script> <!-- Import open source routing -->
     <script>
 
-      let routingControl = null;
-      let trackedTruckId = null;
+      let routingControl = null; // Set variable to a null state, so it can be updated later.
+      let trackedTruckId = null; // Set variable to a null state, so it can be updated later.
 
       // This is the icon if the truck is open
-      const openIcon = L.icon({
+      const openIcon = L.icon({ 
       iconUrl: '/static/images/unsaturated.png',   
       iconSize: [40, 40],                        
       iconAnchor: [20, 40],                   
@@ -98,19 +98,19 @@ The menu panel makes a container for the side panel
           menuContent.innerHTML = html;
 }
         var map = L.map('map', {
-          zoomControl: false,
-          attributionControl: false,
-          zoomAnimation: true,
-          fadeAnimation: true,
+          zoomControl: false, // gets rid of zoom buttons (+ -)
+          attributionControl: false, // gets rid of the copyright thing on the bottom (leaflet.something)
+          zoomAnimation: true, // anim for zoom
+          fadeAnimation: true, // anim for to fade zooms
         }).setView([39.9566, -75.1899], 16.5);
 
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { // new map distro
             maxZoom: 19,
         }).addTo(map);
 
         map.locate({
-        watch: true, 
-        enableHighAccuracy: true,
+        watch: true, // user's location
+        enableHighAccuracy: true, // use's devices max ram or cpu usage (not max but more usage) to grab the most accurate positioning
         });
 
         // This is going to be used as a simple lookup table
@@ -207,50 +207,50 @@ The menu panel makes a container for the side panel
                 });
             });
 
-    const instructionBox = document.getElementById('routing-instructions');
+    const instructionBox = document.getElementById('routing-instructions'); // Get's html element (routing instructions) from above.
 
-function startTracking(truckId, truckLat, truckLng) {
-    if (!userMarker) {
+function startTracking(truckId, truckLat, truckLng) { // 3 Parameters, takes in id, lat, lng all from DB
+    if (!userMarker) { // if there isn't a user marker
         alert("Trying to find your location.");
         return;
     }
-    if (trackedTruckId === truckId) {
-        if (routingControl) {
-            map.removeControl(routingControl);
-            routingControl = null;
+    if (trackedTruckId === truckId) { // if tracking, if the ID of the tracked truck and the id of the normal truck is the same
+        if (routingControl) { // checks if you are routing
+            map.removeControl(routingControl); // removes previous route if there were any
+            routingControl = null; // null state
             trackedTruckId = null;
-            instructionBox.style.display = 'none';
+            instructionBox.style.display = 'none'; 
         }
         return;
 }
 
-    if (routingControl) {
+    if (routingControl) { // if routing control is active remove it from map, (first time user comes in)
         map.removeControl(routingControl);
     }
 
-    routingControl = L.Routing.control({
+    routingControl = L.Routing.control({ // L.Routing is a built in leaflet function 
       waypoints: [
-          userMarker.getLatLng(), 
-          L.latLng(truckLat, truckLng)
+          userMarker.getLatLng(), // array consisting of the user's lat and lang
+          L.latLng(truckLat, truckLng) // grabs the truck's lat & lang
       ],
-      router: L.Routing.osrmv1({
-        serviceUrl: 'https://router.project-osrm.org/route/v1',
-        profile: 'foot'
+      router: L.Routing.osrmv1({ // osrmv1 is a public routing service
+        serviceUrl: 'https://router.project-osrm.org/route/v1', // the url of the api
+        profile: 'foot' // several profiles, {foot, car, public transportation, train, bike} can use for later if user wants to specify what they are using to get the the foodtruck
     }),
       lineOptions: {
-          styles: [{ color: '#8cbaee', weight: 6, opacity: 0.8 }]
+          styles: [{ color: '#8cbaee', weight: 6, opacity: 0.8 }] // styles -> just colors, weight is the stroke of the line
       },  
       addWaypoints: false,
-      draggableWaypoints: false,
+      draggableWaypoints: false, // don't want to drag points around so I disabled this flag
   
       show: false, 
-      itinerary: false, 
+      itinerary: false, // planned route set to false before it's active
     
     createMarker: function() { return null; } 
 }).addTo(map);
     routingControl.on('routesfound', function(e) {
-        const routes = e.routes;
-        const summary = routes[0].summary; 
+        const routes = e.routes; // any routes
+        const summary = routes[0].summary; // first route [index 0] then .summary just appends
         const instructions = routes[0].instructions;
         
         if (instructions && instructions.length > 0) {
@@ -260,7 +260,7 @@ function startTracking(truckId, truckLat, truckLng) {
             const totalMiles = (summary.totalDistance * metersToMiles).toFixed(2);
           
             const nextStep = instructions[0];
-            const nextStepMiles = (nextStep.distance * metersToMiles).toFixed(2);
+            const nextStepMiles = (nextStep.distance * metersToMiles).toFixed(2); // 2 is rounding to the 2nd decimal after the whole num
         
             const walkTimeMinutes = Math.round(summary.totalTime / 5); // rounds to nearest mile after converting km to mi
 
