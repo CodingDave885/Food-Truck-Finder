@@ -17,6 +17,8 @@ Drexel Food Truck Interactive Map is a map displaying food trucks on Drexel Camp
 - Flask-SQLAlchemy
 - SQLite
 - HTML (Jinja templates)
+- JavaScript
+- Leaflet.js
 
 ## Installation
 Follow these steps to run this project locally
@@ -70,6 +72,13 @@ Run this command to start up your locally hosted website
 ```bash
 python run.py
 ```
+
+## Authors
+
+- David Liberatore - Backend Developer, Database Design
+- Andre Nunes Da Silva - Fullstack Developer, Leaflet Integration, HTML / CSS
+- Alex Troeschel - Data Analyst, Leaflet Integration
+- Kyle Cuba - Website Developer, HTML / CSS
 
 ## License
 [MIT](https://gitlab.cci.drexel.edu/cid/2526/ws1023/62/gc3/drexel-food-truck-interactive-map/-/blob/main/LICENSE?ref_type=heads)
