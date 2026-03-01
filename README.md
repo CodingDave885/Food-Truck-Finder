@@ -28,7 +28,7 @@ git clone <https://gitlab.cci.drexel.edu/cid/2526/ws1023/62/gc3/drexel-food-truc
 cd drexel-food-truck-interactive-map
 ```
 
-2. Create and Activate a Virtual Enviroment
+2. Create and Activate a Virtual Environment
 
 **Windows**
 ```bash
@@ -36,11 +36,19 @@ python -m venv venv
 venv\Scripts\activate
 ```
 
+**Windows Powershell**
+```bash
+python -m venv venv
+venv\Scripts\Activate.ps1
+```
+
 **Mac / Linux**
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 ```
+
+When installing more packages for this project, be sure to activate the virtual enviroment in order for these installs to be saved inside of the venv folder. 
 
 3. Install Required Dependencies 
 
@@ -50,14 +58,14 @@ pip install -r requirements.txt
 
 4. Database Setup
 
-This application runs on CSV files for each scheme of food truck, food truck menu items, as well as the food truck closing times. If you make any changes to any of these tables, run the following command in your terminal
+This application runs on CSV files for food trucks, menu items, and operating hours. If you make any changes to any of these tables, run the following command in your terminal
 ```bash
 python seed.py
 ```
 
 5. Running the Application
 
-Run this command to startup your locally hosted website
+Run this command to start up your locally hosted website
 
 ```bash
 python run.py
