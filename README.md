@@ -52,7 +52,7 @@ pip install -r requirements.txt
 
 This application runs on CSV files for each scheme of food truck, food truck menu items, as well as the food truck closing times. If you make any changes to any of these tables, run the following command in your terminal
 ```bash
-seed.py
+python seed.py
 ```
 
 5. Running the Application
