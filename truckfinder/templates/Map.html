@@ -18,6 +18,9 @@ The menu panel makes a container for the side panel
     -->
   <div id="menu-content"></div>
 </div>
+<div id="stop-button-menu">
+    <button id="stop-button">Stop Tracking</div>
+</div>
 
 <div id="routing-instructions">Select a truck to start navigating...</div> <!--Head div, shows the little pill on the bottom routing-instructions is the class name-->
 <div id="map"></div>
@@ -50,6 +53,8 @@ The menu panel makes a container for the side panel
         // Does this with all of it, and then stores it in these variables
         const menuContent = document.getElementById("menu-content");
         const closeBtn = document.getElementById("close-menu");
+        const stopBtn = document.getElementById("stop-button")
+        const stopBtnPanel = document.getElementById("stop-button-menu");
 
         // This adds the open class to the panel
         function openMenuPanel() {
@@ -223,6 +228,7 @@ function startTracking(truckId, truckLat, truckLng) { // 3 Parameters, takes in 
         }
         return;
 }
+    showStopTrackingBtn()
 
     if (routingControl) { // if routing control is active remove it from map, (first time user comes in)
         map.removeControl(routingControl);
@@ -320,6 +326,27 @@ map.on('locationfound', (e) => {
         }
     }
 });
+        stopBtn.addEventListener("click", stopTracking);
+        function stopTracking() {
+            if (routingControl) {
+                map.removeControl(routingControl);
+                trackedTruckId = null;
+                routingControl = null;
+                instructionBox.innerHTML = `
+                    Select a truck to start navigating...
+                `;
+                hideStopTrackingBtn();
+            }
+            return;
+        }
+        function showStopTrackingBtn() {
+            stopBtn.classList.add("seen");
+            stopBtnPanel.classList.add("seen");
+        }
+        function hideStopTrackingBtn() {
+            stopBtn.classList.remove("seen");
+            stopBtnPanel.classList.remove("seen");
+        }
 
         function onLocationError(e) {
         alert(e.message);

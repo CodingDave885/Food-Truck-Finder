@@ -266,6 +266,38 @@ p2 {
   height: 100%;
   z-index: 1;
 }
+#stop-button-menu {
+  color: white;
+  position: absolute;
+  bottom: 20px;
+  left: 70%;
+  translate: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  padding: 15px 25px;
+  border-radius: 30px;
+  border: 1px solid #8cbaee;
+  display: center;
+  text-align: center;
+  width: 150px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+#stop-button-menu.seen {
+  z-index: 1000;
+}
+#stop-button {
+  color: #000;
+  position: fixed;
+  bottom: 25px;
+  left: 71%;
+  width: 120px;
+  height: 20px;
+  background: white;
+  z-index: 1000;
+}
+#stop-button.seen {
+  right: 0;
+}
 
 #menu-panel {
   color: #000; /* black */
