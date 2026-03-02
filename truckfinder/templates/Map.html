@@ -30,6 +30,7 @@ The menu panel makes a container for the side panel
 
       let routingControl = null; // Set variable to a null state, so it can be updated later.
       let trackedTruckId = null; // Set variable to a null state, so it can be updated later.
+      let currentTotal = 0 // to count money total, to calculate how much you would spend.
 
       // This is the icon if the truck is open
       const openIcon = L.icon({ 
@@ -94,13 +95,31 @@ The menu panel makes a container for the side panel
           items.forEach(item => {
             // Builds HTML using menu data
             html += `
-              <div class="menu-item">
-                <h4>${item.name} — $${item.price}</h4>
+            <div class="menu-item" role="button" onclick="addToTotal('${item.price}')">
+                <h4>
+                    <span>${item.name}</span>
+                    <span class='price'>$${item.price}</span>
+                    </h4>
               </div>
             `;
           });
+
+          html += `
+          </div>
+          <div id="receipt-bottom">
+          <div class="total-row">
+            <span>Estimated Total:</span>
+            <span id="grand-total">$0.00</span>
+        </div>
+        <button id="clear-calc" onclick="resetTotal()">
+        <i class="fas fa-trash-alt" style="margin-right: 5px;"></i> Clear Receipt
+        </button>
+        </div>
+        `;
+
           // Injects HTML into the panel
           menuContent.innerHTML = html;
+          currentTotal = 0; // resets when a user refreshes or new time they load website
 }
         var map = L.map('map', {
           zoomControl: false, // gets rid of zoom buttons (+ -)
@@ -365,6 +384,25 @@ map.on('locationfound', (e) => {
         }
 
         map.on('locationerror', onLocationError);
+
+        function addToTotal(price) {
+        currentTotal += parseFloat(price);
+        const totalDisplay = document.getElementById('grand-total');
+    
+        // Updates text, rounds to 2nd decimal place
+        totalDisplay.innerText = `$${currentTotal.toFixed(2)}`;
+    
+        totalDisplay.style.transform = "scale(1.2)";
+        totalDisplay.style.color = "#2ecc71"; // Turn green briefly
+        setTimeout(() => {
+            totalDisplay.style.transform = "scale(1)";
+        }, 150);
+    }
+
+    function resetTotal() {
+        currentTotal = 0;
+        document.getElementById('grand-total').innerText = "$0.00";
+    }
 
     </script>
 {%endblock%}
