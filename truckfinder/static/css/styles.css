@@ -478,36 +478,56 @@ html {
 }
 
 .pin-popup .leaflet-popup-content-wrapper {
-  display: flex;
-  background: radial-gradient(#ffffff, #d1d1d1);
-  text-align: center;
-  padding: 7px;
-  box-shadow: 0 1px 4px rgba(255, 255, 255, 0.8);
-  color: rgb(30, 30, 30);
+    background: radial-gradient(#ffffff, #e3e3e3); 
+    border-radius: 18px; 
+    padding: 10px; 
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3); 
+    border: 1px solid rgba(255,255,255,0.8); 
 }
 
 .pin-popup .leaflet-popup-tip {
-    background: rgb(209, 209, 209)
+    background: #f0f0f0; 
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 }
 
-.pin-popup li {
-  list-style-type: none;
-  padding: 0;
-  margin: 3px 0;
+.pin-popup .leaflet-popup-close-button {
+    top: 8px; 
+    right: 8px; 
+    color: #999;
+    font-size: 1.2rem;
+    background: none;
+    border: none;
 }
 
-.pin-popup li {
-  margin-bottom: 2px;
-  font-size: 13px;
+.pin-popup .leaflet-popup-content {
+    color: #333;
+    margin: 15px 15px 10px 15px; 
+    text-align: center; 
 }
 
-.pin-popup h3 {
-  color: #8cbaee;
-  text-shadow: 0 3px 20px #80ced7;
+.pin-popup .status-info {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.status-bulb {
+    height: 14px; 
+    width: 14px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    vertical-align: middle;
+    box-shadow: none;
+    border: none;
 }
 
 @keyframes pulse-green {
-  0% {
+    0% {
         transform: scale(0.95);
         box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7);
     }
@@ -519,13 +539,12 @@ html {
         transform: scale(0.95);
         box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
     }
-  
 }
 
 @keyframes pulse-red {
-  0% {
+    0% {
         transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(255, 134, 146, 0.692);
+        box-shadow: 0 0 0 0 rgba(243, 95, 110, 0.7); 
     }
     70% {
         transform: scale(1);
@@ -535,54 +554,119 @@ html {
         transform: scale(0.95);
         box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
     }
-  
-}
-
-.status-bulb {
-  height: 12px;
-  width: 12px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 5px;
-  vertical-align: middle;
-  box-shadow: inset -2px -2px 4px rgba(0,0,0,0.4), 0 0 8px rgba(0,0,0,0.2);
 }
 
 .status-bulb.open {
-  background-color: #2ecc71; 
-  animation: pulse-green 2s infinite;
-  box-shadow: inset -2px -2px 4px rgba(0,0,0,0.4), 0 0 10px #2ecc71;
+    background-color: #2ecc71; 
+    animation: pulse-green 2s infinite;
 }
 
 .status-bulb.closed {
-  background-color: #ff8080;
-  animation: pulse-red 2s infinite;
-  box-shadow: inset -2px -2px 4px rgba(0,0,0,0.4), 0 0 10px #ff8080;
+    background-color: rgb(243, 95, 110); 
+    animation: pulse-red 2s infinite;
 }
 
-.pin-popup button {
-  display: inline-block;
-  background-color: #f8f9fa;
-  border: 1.5px solid #dee2e6;
-  border-radius: 8px; 
-  color: #212529;
-  padding: 8px 12px;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+.pin-popup .hours-list {
+    list-style: none; 
+    padding: 0;
+    margin: 5px 0 10px 0; 
+    border-top: 1px solid #eee; 
+    padding-top: 15px; 
 }
 
-.pin-popup button:hover {
-  background-color: #444343;
-  color: #ffff;
-  border-color: #050505;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-  transform: translateY(-1px);
+.pin-popup .hours-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+    font-size: 0.95rem; 
+    color: #555;
+    border-bottom: 2px solid #d9d9d9;
 }
 
-.pin-popup button:active {
-  transform: translateY(0);
+.pin-popup .hours-list li .day-label {
+    font-weight: 600;
+    color: #373737;
+    flex-shrink: 0; 
+    margin-right: 10px; 
 }
+
+.pin-popup .hours-list li .open-time {
+    color: #000000;
+    text-align: right;
+    font-variant-numeric: tabular-nums; 
+}
+
+.popup-button-row {
+    display: flex;
+    gap: 10px; 
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+.pin-popup .track-button {
+    flex: 1; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    border-radius: 25px; 
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.pin-popup .menu-button, 
+.pin-popup .track-button {
+    flex: 1;
+    white-space: nowrap; 
+}
+
+.pin-popup button i {
+    margin-right: 8px;
+    font-size: 1rem;
+}
+
+.pin-popup .menu-button {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    color: #333333;
+    
+    flex: 1; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    border-radius: 25px; 
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.pin-popup .menu-button:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+.pin-popup .track-button {
+    background: #53e2f1;
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 4px 12px rgba(145, 196, 250, 0.4); 
+}
+
+.pin-popup .track-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgb(83, 169, 255);
+}
+.pin-popup h3 {
+  font-size: 1.3rem;
+}
+

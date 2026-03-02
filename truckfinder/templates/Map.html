@@ -159,8 +159,8 @@ The menu panel makes a container for the side panel
                         <!-- Bolds Today -->
                         <li ${isToday ? 'style="font-weight: bold;"' : ""}>
                         ${isToday ? "" : ""}
-                        ${days[jsDay]}:
-                        ${h.open_time} – ${h.close_time}
+                        <span class='day-label'>${days[jsDay]}:</span>
+                        <span class='open-time'>${h.open_time} – ${h.close_time}</span>
                         </li>
                     `;
                 })
@@ -191,10 +191,12 @@ The menu panel makes a container for the side panel
                                 <strong></strong>
                                 <!--If it is opened, do the first option
                                 If it is closed, do the second option-->
+                                <div class="status-info">
                                 ${truck.is_open 
                                 ? `<span><span class="status-bulb open"></span> <strong>Open now!</strong> </span>`
                                 : `<span><span class="status-bulb closed"></span> <strong>Closed</strong> </span>`
                                 }
+                                </div>
                             </p>
 
                             <p><strong></strong></p>
@@ -205,15 +207,19 @@ The menu panel makes a container for the side panel
                             <!--
                             Calls showMenu(), and passes the truck's db
                             -->
-                            <button onclick="showMenu(${truck.id})">
-                                MENU
+                            <div class="popup-button-row">
+                            <button class='menu-button' onclick="showMenu(${truck.id})">
+                                <i class="fas fa-bars"></i> MENU
                             </button>
-                            <button onclick="startTracking(${truck.id}, ${truck.latitude}, ${truck.longitude})">
-                            TRACK
+                            <button class='track-button' onclick="startTracking(${truck.id}, ${truck.latitude}, ${truck.longitude})">
+                                <i class="fas fa-location-arrow"></i> TRACK
                             </button>
+                            </div>
                         `, {
                             className: 'pin-popup', // class name to customize the pin's contents
-                            maxWidth: 300
+                            maxWidth: 250,
+                            maxHeight: 450,
+                            autoPan: true
                         });
                 });
             });
