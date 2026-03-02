@@ -188,14 +188,17 @@ The menu panel makes a container for the side panel
                             <h3>${truck.name}</h3>
 
                             <p>
-                                <strong>Status:</strong>
+                                <strong></strong>
                                 <!--If it is opened, do the first option
                                 If it is closed, do the second option-->
-                                ${truck.is_open ? " 🟢 Open now" : "🔴 Closed"}
+                                ${truck.is_open 
+                                ? `<span><span class="status-bulb open"></span> <strong>Open now!</strong> </span>`
+                                : `<span><span class="status-bulb open"></span> <strong>Closed</strong> </span>`
+                                }
                             </p>
 
-                            <p><strong>Hours:</strong></p>
-                            <ul>
+                            <p><strong></strong></p>
+                            <ul class='hours-list'>
                                 ${buildHoursList(truck.hours)}
                             </ul>
                             <br>
@@ -208,7 +211,10 @@ The menu panel makes a container for the side panel
                             <button onclick="startTracking(${truck.id}, ${truck.latitude}, ${truck.longitude})">
                             TRACK
                             </button>
-                        `);
+                        `, {
+                            className: 'pin-popup', // class name to customize the pin's contents
+                            maxWidth: 300
+                        });
                 });
             });
 
