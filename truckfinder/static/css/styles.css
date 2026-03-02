@@ -300,28 +300,149 @@ p2 {
 }
 
 #menu-panel {
-  color: #000; /* black */
+  color: #2c2c2c; /* black */
   position: fixed; /* Panel stays in place when scrolling */
   top: 0;
   right: -400px; /* The panel is off screen when not called upon */
   width: 400px;
   height: 100%;
-  background: white;
   /*
   The -20px gives it a slight shadow on the left side of the box
   The 10px says how blurry it is
   The shadow is black, and has a transparency of 80%
   */
-  box-shadow: -20px 0 10px rgba(0, 0, 0, 0.2);
-  transition: right 0.3s ease; /*Smooth animation from the left */
+
+  background-color: #fcfaf2;
+
+  background-image:
+  linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
+  url(../images/paper.webp);
+  background-size: cover;
+
+  filter: contrast(105%) brightness(98%);
+
+  opacity: 0;
+  transform: scale(0.3) rotate(15deg);
+  transform-origin: top right;
+  
+  clip-path: polygon(0 0, 100% 0, 100% 20%, 0 20%); 
+
+  transition: 
+    right 0.5s ease,
+    transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    clip-path 0.6s cubic-bezier(0.77, 0, 0.175, 1),
+    opacity 0.3s ease;
+    
+  box-shadow: -10px 10px 30px rgba(0,0,0,0.1);
+
+  box-shadow: -15px 0 30px rgba(0, 0, 0, 0.3);
   /*This allows teh element to appear on top of the other page*/
   z-index: 1000;
   overflow-y: auto; /* Allows scrolling */
-  padding: 20px;
+  padding: 40px 30px;
+  border-left: 1px solid rgba(0,0,0,0.05); 
+  box-shadow: 
+    -5px 0 15px rgba(0,0,0,0.1), 
+    -15px 0 30px rgba(0,0,0,0.05);
 }
+
+#menu-content {
+  mix-blend-mode: multiply; 
+  opacity: 0.9; 
+}
+
+.menu-item {
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.menu-item {
+  transition: transform 0.2s ease;
+}
+
+.menu-item:hover {
+  transform: translateX(-5px) scale(1.02); 
+}
+
+.menu-item:hover {
+    background-color: rgba(197, 197, 197, 0.2);
+    transform: translateX(5px);
+}
+
+.menu-item:hover .item-name {
+    background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 40%;
+    background-position: 0 80%;
+}
+
+.menu-item:active {
+    transform: scale(0.98) translateX(5px);
+    background-color: rgba(171, 199, 201, 0.4);
+}
+
+.menu-item h4 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.menu-item h4::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px dotted #aaa;
+  margin: 0 10px;
+  order: 2;
+}
+
+.menu-item .price {
+  order: 3;
+  font-weight: 700;
+  color: #3d8221;
+}
+
 /* When the panel opens, it slides onto the right */
 #menu-panel.open {
   right: 0;
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+#menu-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 32%,
+    rgba(0,0,0,0.05) 33%,
+    transparent 34%,
+    transparent 65%,
+    rgba(0,0,0,0.05) 66%,
+    transparent 67%
+  );
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+
+.menu-item {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: all 0.4s ease;
+}
+
+#menu-panel.open::after {
+  opacity: 0.2; 
+}
+
+#menu-panel.open .menu-item {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 #close-menu {
@@ -329,6 +450,11 @@ p2 {
   border: none;
   font-size: 22px;
   cursor: pointer;
+}
+
+#close-menu:hover {
+  color: rgb(255, 86, 86);
+  transform: translateY(-1px);
 }
 
 body,
@@ -670,3 +796,33 @@ html {
   font-size: 1.3rem;
 }
 
+#receipt-bottom {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px dashed rgba(0,0,0,0.1);
+    text-align: right;
+}
+
+#grand-total {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1.4rem;
+    transition: transform 0.1s ease;
+}
+
+#clear-calc {
+  background-color: rgba(171, 199, 201, 0.6); 
+  border: none;
+  color: #2c2c2c;
+  padding: 6px 15px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%); 
+  transition: 0.3s;
+}
+
+#clear-calc:hover {
+  background-color: rgba(171, 199, 201, 1);
+  letter-spacing: 1px;
+}
