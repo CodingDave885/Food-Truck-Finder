@@ -1,9 +1,13 @@
+## Project Status
+This project will not be worked on from 3/9/2026 to 3/29/2026, due to our developers taking a break.
+
 # Drexel Food Truck Interactive Map
-Drexel Food Truck Interactive Map is a map displaying food trucks on Drexel Campus. The application uses Flask and SQLAlchemy to manage food truck data and render it dynamically.
+Drexel Food Truck Interactive Map is a map displaying food trucks on Drexel Campus. The application uses Flask and SQLAlchemy to manage food truck data and render it dynamically, allowing you to find food trucks and information about them easily.
 
 ## Features
 
 - View food trucks
+- View when food trucks are open
 - View menu items for each truck
 - Store and retrieve data using a database
 - JSON responses for API-style endpoints
@@ -19,6 +23,9 @@ Drexel Food Truck Interactive Map is a map displaying food trucks on Drexel Camp
 - HTML (Jinja templates)
 - JavaScript
 - Leaflet.js
+
+## Image
+![Project Map](truckfinder/static/images/mapInUse.png)
 
 ## Installation
 Follow these steps to run this project locally
@@ -72,6 +79,9 @@ Run this command to start up your locally hosted website
 ```bash
 python run.py
 ```
+
+## Roadmap
+We plan on adding a reviews system in the future, along with adding more food trucks.
 
 ## Authors
 
