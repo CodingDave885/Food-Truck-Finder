@@ -243,6 +243,16 @@ The menu panel makes a container for the side panel
                 });
             });
 
+        // Tells the map that whenever someone opens a popup, run this function
+        map.on('popupopen', function(e) {
+            // Gets the lat / long of the popup, and stores it in the px variable
+            let px = map.project(e.target._popup._latlng);
+            // Gets the y coordinate of the popup, and moves the mapping up
+            px.y -= e.target._popup._container.clientHeight/2;
+            map.panTo(map.unproject(px),{animate: true}); // pan to new center
+        });
+
+
     const instructionBox = document.getElementById('routing-instructions'); // Get's html element (routing instructions) from above.
 
 function startTracking(truckId, truckLat, truckLng) { // 3 Parameters, takes in id, lat, lng all from DB
