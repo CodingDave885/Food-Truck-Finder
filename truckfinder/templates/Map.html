@@ -103,7 +103,8 @@ The menu panel makes a container for the side panel
               </div>
             `;
           });
-
+          //Adds to the html the bottom of the menu, where the total of all
+          //selected options is displayed
           html += `
           </div>
           <div id="receipt-bottom">
@@ -320,34 +321,40 @@ instructionBox.innerHTML = `
     });
 }
         function onMapClick(e) {
+            //Shows the longitude and latitude when you click somewhere on the map
+            //Used to find trucks longitude and latitude on the map easily
             L.popup()
                 .setLatLng(e.latlng)
                 .setContent("Coordinates: " + e.latlng.toString())
                 .openOn(map);
         }
-
+        //Runs the onMapClick function when you click on the map and not a button or pin
         map.on('click', onMapClick);
 
         function onLocationFound(e) {
+          //Creates a pin for the user's location on the map
           const radius = e.accuracy / 2;
 
           L.marker(e.latlng).addTo(map)
             .bindPopup("You are here").openPopup();
-
+          //Makes the circle around the user to account for error in their location
           L.circle(e.latlng, radius).addTo(map);
         }
 
         let userMarker, accuracyCircle;
-
+//Runs when the users location is checked
 map.on('locationfound', (e) => {
     const radius = e.accuracy / 2;
+    //Creates a pin for the user if not already there
     if (!userMarker) {
         userMarker = L.marker(e.latlng).addTo(map);
         accuracyCircle = L.circle(e.latlng, radius).addTo(map);
     } else {
+        //Updates the user's location if already found
         userMarker.setLatLng(e.latlng);
         accuracyCircle.setLatLng(e.latlng);
         accuracyCircle.setRadius(radius);
+        //If routing, check waypoints again and remove unnecessary ones
         if (routingControl) {
             const currentWaypoints = routingControl.getWaypoints();
             routingControl.setWaypoints([
@@ -356,6 +363,8 @@ map.on('locationfound', (e) => {
             ]);
         }
     }
+    //If routing to a truck, check waypoints again only if 
+    //far from your last position
     if (routingControl && trackedTruckId !== null) {
         const currentWaypoints = routingControl.getWaypoints();
         const oldPos = currentWaypoints[0].latLng;
@@ -367,8 +376,12 @@ map.on('locationfound', (e) => {
         }
     }
 });
+        //When the stop button is clicked, run stop tracking
         stopBtn.addEventListener("click", stopTracking);
         function stopTracking() {
+            //if routing, remove the route and stop storing the tracked
+            //truck, along with resetting the message in the directions box
+            //Hides the stop tracking button after clearing tracking
             if (routingControl) {
                 map.removeControl(routingControl);
                 trackedTruckId = null;
@@ -380,21 +393,28 @@ map.on('locationfound', (e) => {
             }
             return;
         }
+        //Moves the stop tracking button to the front layer
+        //by changing its class
         function showStopTrackingBtn() {
             stopBtn.classList.add("seen");
             stopBtnPanel.classList.add("seen");
         }
+        //Hides the stop tracking button by moving it to the
+        //bottom layer, through changing its class
         function hideStopTrackingBtn() {
             stopBtn.classList.remove("seen");
             stopBtnPanel.classList.remove("seen");
         }
 
+        //Gives an alert when there's an error in location
         function onLocationError(e) {
         alert(e.message);
         }
 
         map.on('locationerror', onLocationError);
 
+        //Adds the price of a food item to the total price of your order
+        //and updates the display accordingly
         function addToTotal(price) {
         currentTotal += parseFloat(price);
         const totalDisplay = document.getElementById('grand-total');
@@ -409,6 +429,7 @@ map.on('locationfound', (e) => {
         }, 150);
     }
 
+    //Sets the total value of items ordered to 0
     function resetTotal() {
         currentTotal = 0;
         document.getElementById('grand-total').innerText = "$0.00";
