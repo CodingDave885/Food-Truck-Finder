@@ -271,6 +271,7 @@ function startTracking(truckId, truckLat, truckLng) { // 3 Parameters, takes in 
         return;
 }
     showStopTrackingBtn()
+    trackedTruckId = truckId;
 
     if (routingControl) { // if routing control is active remove it from map, (first time user comes in)
         map.removeControl(routingControl);
@@ -282,7 +283,7 @@ function startTracking(truckId, truckLat, truckLng) { // 3 Parameters, takes in 
           L.latLng(truckLat, truckLng) // grabs the truck's lat & lang
       ],
       router: L.Routing.osrmv1({ // osrmv1 is a public routing service
-        serviceUrl: 'https://router.project-osrm.org/route/v1', // the url of the api
+        serviceUrl: 'https://routing.openstreetmap.de/routed-foot/route/v1', // the url of the api
         profile: 'foot' // several profiles, {foot, car, public transportation, train, bike} can use for later if user wants to specify what they are using to get the the foodtruck
     }),
       lineOptions: {
@@ -310,7 +311,7 @@ function startTracking(truckId, truckLat, truckLng) { // 3 Parameters, takes in 
             const nextStep = instructions[0];
             const nextStepMiles = (nextStep.distance * metersToMiles).toFixed(2); // 2 is rounding to the 2nd decimal after the whole num
         
-            const walkTimeMinutes = Math.round(summary.totalTime / 5); // rounds to nearest mile after converting km to mi
+            const walkTimeMinutes = Math.round(summary.totalTime / 60); // rounds to nearest mile after converting km to mi
 
 instructionBox.innerHTML = `
     <small style="color: #888; display: block;">${walkTimeMinutes} min walk</small>
