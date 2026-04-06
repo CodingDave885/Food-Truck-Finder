@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!--Template for other html pages to use-->
 <html lang="en">
+<!--Applies styles and leaflit to all of the html pages, along with giving the page a title-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
     <title>{{title}}</title>
 </head>
+<!--Creates the navigation bar at the top of the screen, containing buttons for each page-->
 <body>
     <nav>
         <div class="logo">Foodtruck Finder</div>
@@ -19,6 +22,7 @@
             <li><a href="{{ url_for('about') }}">About</a></li>
         </ul>
     </nav>
+    <!--The html for other pages is put here when rendering, so that the above html is consistent-->
     {%block content%}
     {%endblock%}
 </body>

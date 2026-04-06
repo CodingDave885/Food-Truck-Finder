@@ -5,7 +5,8 @@ from flask import jsonify
 from datetime import datetime
 
 
-
+# These routes connect to each html page, to make the path
+# simpler and more professional than html files
 @app.route("/")
 def home():
     return render_template("home.html", title="Home")

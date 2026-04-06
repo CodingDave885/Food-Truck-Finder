@@ -1,6 +1,7 @@
 {%extends "layout.html"%}
 {% block content %}
     <div class="hero">
+        <!--Builds the home page, where you find the welcome message-->
         <div class="hero-text">
         <h1>
             <u>Welcome</u> <span class='wave'>👋</span>
@@ -13,14 +14,14 @@
             <b class="highlight">
                 foodtruck</b>, but <lol class="strike">google or apple maps</lol> didn't offer it? <span class="nervous">😬</span></p1>
         <br><br><p2>Well, we have a <u class="underline_class">solution</u>.</p2></br></br>
-        
+        <!--Creates the button to access the map on the home page-->
         <form action="{{ url_for('map_page')}}">
         <button type="submit" class="buttonc fill-btn">
             <span>Get Started</span>
         </button>
         </form>
         </div>
-     
+    <!--Food truck image-->
     <div class="hero-image">
         <img src="../static/images/food-truck-ram-trucks-fried-chicken-food-truck-eec039e6846d8ad659e85043d5cafeb6.png" alt="placeholder">
     </div>
