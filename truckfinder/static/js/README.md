@@ -24,8 +24,8 @@ static/js
 
 -- Adding to Map.html (or any file) --
 
-1. Load your file in with a script tag (ex : <script src="{{ url_for('static', filename='js/map.js') }}"></script> )
-   - the tag opens with <script> and ends with </script> 
+1. Load your file in with a script tag (ex : "< script src="{{ url_for('static', filename='js/map.js') }}"></ script> )"
+   - the tag opens with "< script >" and ends with "</ script >"
    - route the JS file with "url_for" then the parent folder name which is "static"
    - then depending if your filename is in "js/functions" or "js" just do it in accordance of the file structure so it doesn't mess anything up
 
