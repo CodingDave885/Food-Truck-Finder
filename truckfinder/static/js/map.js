@@ -17,7 +17,7 @@ const closedIcon = L.icon({
   popupAnchor: [0, -40],
 });
 
-var map = L.map('map', {
+window.map = L.map('map', {
   zoomControl: false, // gets rid of zoom buttons (+ -)
   attributionControl: false, // gets rid of the copyright thing on the bottom (leaflet.something)
   zoomAnimation: true, // anim for zoom
@@ -26,7 +26,7 @@ var map = L.map('map', {
 
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { // new map distro
     maxZoom: 19,
-}).addTo(map);
+}).addTo(window.map);
 
 map.locate({
   watch: true, // user's location
@@ -82,6 +82,8 @@ function buildHoursList(hours) {
         .join("");
 }
 
+window.markers = {};
+
 // Fetch trucks from backend
 fetch('/api/food_trucks')
     // Fetch returns something called a promise
@@ -92,13 +94,15 @@ fetch('/api/food_trucks')
         // This loops through every truck
         data.forEach(truck => {
 
+            const truckId = truck.id;
+
             // This sets the icon to either opened or closed
             const customIcon = truck.is_open ? openIcon : closedIcon;
 
             // Creates the leaflet marker
-            L.marker([truck.latitude, truck.longitude], {icon: customIcon })
+            const marker = L.marker([truck.latitude, truck.longitude], {icon: customIcon })
                 // This actually adds it to the map
-                .addTo(map)
+                .addTo(window.map)
                 // Creates the popup of the marker
                 .bindPopup(`
                     <h3>${truck.name}</h3>
@@ -137,7 +141,7 @@ fetch('/api/food_trucks')
                 })
                 //Added next line by Alex Troeschel on 4/8/2026 @ 8:40PM
                 .bindTooltip(`<h3>${truck.name}</h3>`, {direction: 'top', offset: [0, -47], className: 'pin-popup'});
-                // Stores the marker in global object
+            // Stores the marker in global object
             window.markers[truckId] = marker;
         });
         // Signals sidebar can access markers

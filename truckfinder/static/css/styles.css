@@ -834,3 +834,65 @@ html {
   background-color: rgba(171, 199, 201, 1);
   letter-spacing: 1px;
 }
+/* Sidebar panel */
+/* Author: Chat GPT "How to make a Pop-out Sidebar" 4/8/2026 */
+#sidePanel {
+    padding-top: 50px;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background: #fff;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.3);
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1100;       /* below toggle button */
+}
+
+/* Sidebar open state */
+#sidePanel.open {
+    transform: translateX(0);
+}
+
+/* Sidebar header */
+#sidePanel h2 {
+    padding: 15px;
+    margin: 0 0 20px 0;  /* pushes truck list down */
+    font-size: 1.2rem;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Sidebar toggle button */
+#togglePanel {
+    position: fixed;       /* fixed to viewport, not inside sidebar */
+    top: 100px;             /* below nav bar */
+    left: 15px;            /* distance from left edge */
+    z-index: 1200;         /* above sidebar */
+    padding: 8px 12px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+}
+
+/* Individual truck buttons */
+.truck-btn {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    background: #f4f4f4;
+    cursor: pointer;
+    text-align: left;
+    font-size: 1rem;
+    border-bottom: 1px solid #ddd;
+    transition: background 0.2s;
+}
+
+.truck-btn:hover {
+    background: #e0e0e0;
+}
