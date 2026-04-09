@@ -80,6 +80,22 @@ nav {
   text-shadow: 0 0 10px #fbe331;
 }
 
+.nav-links li a.active {
+  color: #fbe331;
+  text-shadow: 0 0 10px #fbe331;
+}
+
+.nav-links li a.active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #fbe331;
+  border-radius: 2px;
+}
+
 .span-container {
   position: relative;
   display: inline-block;
