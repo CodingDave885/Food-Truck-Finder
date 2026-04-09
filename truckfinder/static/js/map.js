@@ -137,8 +137,11 @@ fetch('/api/food_trucks')
                 })
                 //Added next line by Alex Troeschel on 4/8/2026 @ 8:40PM
                 .bindTooltip(`<h3>${truck.name}</h3>`, {direction: 'top', offset: [0, -47], className: 'pin-popup'});
-            
+                // Stores the marker in global object
+            window.markers[truckId] = marker;
         });
+        // Signals sidebar can access markers
+        window.trucksLoaded = true;
     });
 
 // Tells the map that whenever someone opens a popup, run this function
