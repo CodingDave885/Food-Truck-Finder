@@ -153,6 +153,7 @@ nav {
   width: 100%;
   max-width: 420px;
   display: block;
+  filter: drop-shadow(10px 10px 20px rgba(222, 239, 153, 0.594));
 }
 
 h1 {
@@ -917,4 +918,25 @@ html {
 
 .truck-btn:hover {
     background: #e0e0e0;
+}
+
+footer {
+    width: 100%;
+    padding: 1.5rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.85rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+}
+
+footer a {
+    color: #e2e8f0;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+footer a:hover {
+    color: #fbe331;
+    text-shadow: 0 0 10px #fbe331;
 }
