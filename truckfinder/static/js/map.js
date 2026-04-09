@@ -136,7 +136,8 @@ fetch('/api/food_trucks')
                     autoPan: true
                 })
                 //Added next line by Alex Troeschel on 4/8/2026 @ 8:40PM
-                .bindTooltip(`<h3>${truck.name}</h3>`, {direction: "bottom"});
+                .bindTooltip(`<h3>${truck.name}</h3>`, {direction: 'top', offset: [0, -47], className: 'pin-popup'});
+            
         });
     });
 
