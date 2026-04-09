@@ -81,9 +81,15 @@ nav {
 }
 
 .nav-links li a.active {
-  color: #fbe331;
+  color: #fbe331; /*
+                    Author: Andre Nunes da Silva
+                    */
   text-shadow: 0 0 10px #fbe331;
 }
+
+/*
+  Author: Andre Nunes da Silva
+                    */
 
 .nav-links li a.active::after {
   content: "";
