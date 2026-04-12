@@ -1,5 +1,4 @@
 // File refactored on 04/07/26 @ 6:58 PM by Andre Nunes da Silva
-
 // This is the icon if the truck is open
 const openIcon = L.icon({ 
   iconUrl: '/static/images/unsaturated.png',   
@@ -17,14 +16,33 @@ const closedIcon = L.icon({
   popupAnchor: [0, -40],
 });
 
+const modeBox = document.getElementById("light-mode-box");
+const modeBtn = document.getElementById("mode-swap");
+var isLight = false;
+
+function swapModes() {
+  if (isLight == false){
+    isLight = true;
+    tiles.setUrl('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').redraw();
+  }
+  else{
+    isLight = false;
+    tiles.setUrl('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').redraw();
+  }
+}
+modeBtn.addEventListener('click', swapModes);
+
 window.map = L.map('map', {
   zoomControl: false, // gets rid of zoom buttons (+ -)
   attributionControl: false, // gets rid of the copyright thing on the bottom (leaflet.something)
   zoomAnimation: true, // anim for zoom
   fadeAnimation: true, // anim for to fade zooms
+  minZoom: 16,
+  maxZoom: 19,
+  bounceAtZoomLimits: false
 }).setView([39.9566, -75.1899], 16.5);
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { // new map distro
+var tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { // new map distro
     maxZoom: 19,
 }).addTo(window.map);
 

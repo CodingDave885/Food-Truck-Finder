@@ -289,7 +289,31 @@ p2 {
   height: 100%;
   z-index: 1;
 }
-
+#light-mode-box {
+  position: fixed;
+  bottom: 20px; 
+  right: 1%;
+  transform: translateX(-50%);
+  background: none; 
+  border: none;
+  width: auto;
+  box-shadow: none;
+  padding: 0; 
+  z-index: 2000;
+}
+#mode-swap {
+  background-color: rgba(0, 0, 0, 0.9); 
+  color: white;
+  border: 1px solid #96B9EA;
+  padding: 8px 8px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
 #stop-button-menu {
   position: absolute;
   bottom: 100px; 
