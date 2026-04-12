@@ -578,6 +578,7 @@ html {
 .team-container,
 .team-section,
 .routing-instructions,
+.about-github,
 .hero-text form {
   opacity: 0;
   animation: fadeInUp 0.8s ease-out forwards;
@@ -617,6 +618,10 @@ html {
 
 .team-section {
   animation-delay: 0.4;
+}
+
+.about-github {
+  animation-delay: 1s;
 }
 
 .team-row {

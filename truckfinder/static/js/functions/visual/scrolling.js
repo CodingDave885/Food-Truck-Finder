@@ -10,7 +10,7 @@ const observer = new IntersectionObserver((entries) => { // Creates an observer 
     });
   }, { threshold: 0.15 }); // 15% of the element being in view
 
-  // Find every card and section blob on the page and watch them with the observer
+  // Find every card and section blob on the page and watch them with the observer, able to add more class names to it later, if you want to use this feature.
   document.querySelectorAll('.card, .middle, .section-blob, .stat-card, .about-left').forEach(el => {
     observer.observe(el);
   });
