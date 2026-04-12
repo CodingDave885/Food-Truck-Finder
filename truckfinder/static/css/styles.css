@@ -359,6 +359,10 @@ p2 {
 #stop-button.seen {
   right: 0;
 }
+#stop-button.light {
+  background-color: white;
+  color: rgba(0, 0, 0, 0.9)
+}
 
 #stop-button:hover {
   transform: scale(1.05);
@@ -665,6 +669,10 @@ html {
   min-width: 250px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
+#routing-instructions.light {
+  background: white;
+  color: rgba(0, 0, 0, 0.8);
+}
 
 .leaflet-routing-container {
   display: none !important;
@@ -933,10 +941,15 @@ html {
     padding: 8px 12px;
     font-size: 1.2rem;
     cursor: pointer;
-    background: #fff;
-    border: 1px solid #ccc;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: 1px solid #8cbaee;
     border-radius: 4px;
     box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+}
+#togglePanel.light {
+  background: white;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 /* Individual truck buttons */

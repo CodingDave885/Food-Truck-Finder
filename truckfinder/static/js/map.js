@@ -26,11 +26,23 @@ function swapModes() {
     isLight = true;
     tiles.setUrl('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').redraw();
     modeBtn.classList.add("light");
+    modeBtn.innerHTML = `<i class="fas fa-moon"></i>`;
+    document.getElementById("stop-button").classList.add("light");
+    document.getElementById("routing-instructions").classList.add("light");
+    if (document.getElementById("sidePanel").classList.contains("open") == false){
+        document.getElementById("togglePanel").classList.add("light");
+    }
   }
   else{
     isLight = false;
     tiles.setUrl('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').redraw();
     modeBtn.classList.remove("light");
+    modeBtn.innerHTML = `<i class="fas fa-sun"></i>`;
+    document.getElementById("stop-button").classList.remove("light");
+    document.getElementById("routing-instructions").classList.remove("light");
+    if (document.getElementById("sidePanel").classList.contains("open") == false){
+        document.getElementById("togglePanel").classList.remove("light");
+    }
   }
 }
 modeBtn.addEventListener('click', swapModes);

@@ -9,9 +9,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const truckList = document.getElementById("truckList"); // container for truck buttons
 
     // Toggle the sidebar open/close when the button is clicked
-    toggleBtn.addEventListener("click", () => {
-        panel.classList.toggle("open"); // add/remove 'open' class
-    });
+    toggleBtn.addEventListener("click", openPanel); // add/remove 'open' class
+
+    function openPanel() {
+        panel.classList.toggle("open");
+        if (panel.classList.contains("open")) {
+            toggleBtn.classList.add("light");
+        }
+        else if (document.getElementById("mode-swap").classList.contains("light")) {
+            toggleBtn.classList.add("light");
+        }
+        else {
+            toggleBtn.classList.remove("light");
+        }
+    }
 
     // Periodically check if the truck markers have been loaded
     const waitForMarkers = setInterval(() => {
