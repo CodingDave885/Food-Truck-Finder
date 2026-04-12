@@ -7,15 +7,17 @@ const menuPanel = document.getElementById("menu-panel");
 // Does this with all of it, and then stores it in these variables
 const menuContent = document.getElementById("menu-content");
 const closeBtn = document.getElementById("close-menu");
-
+const lightModeBox = document.getElementById("light-mode-box");
 // This adds the open class to the panel
 function openMenuPanel() {
   menuPanel.classList.add("open");
+  lightModeBox.classList.add("shifted");
 }
 
 // Removes the open class, goes back to default
 function closeMenuPanel() {
   menuPanel.classList.remove("open");
+  lightModeBox.classList.remove("shifted");
 }
 
 // When the user clicks the x, the panel closes

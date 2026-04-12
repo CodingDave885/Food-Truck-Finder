@@ -13,15 +13,10 @@ function startTracking(truckId, truckLat, truckLng) { // 3 Parameters, takes in 
         return;
     }
     if (trackedTruckId === truckId) { // if tracking, if the ID of the tracked truck and the id of the normal truck is the same
-        if (routingControl) { // checks if you are routing
-            map.removeControl(routingControl); // removes previous route if there were any
-            routingControl = null; // null state
-            trackedTruckId = null;
-            instructionBox.style.display = 'none'; 
-        }
+        stopTracking();
         return;
     }
-    showStopTrackingBtn()
+    showStopTrackingBtn();
     trackedTruckId = truckId;
 
     if (routingControl) { // if routing control is active remove it from map, (first time user comes in)

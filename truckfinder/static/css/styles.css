@@ -300,6 +300,10 @@ p2 {
   box-shadow: none;
   padding: 0; 
   z-index: 2000;
+  transition: right 0.5s ease;
+}
+#light-mode-box.shifted {
+  right: 25%;
 }
 #mode-swap {
   background-color: rgba(0, 0, 0, 0.9); 
