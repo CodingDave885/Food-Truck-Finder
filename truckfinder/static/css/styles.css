@@ -314,6 +314,15 @@ p2 {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
 }
+#mode-swap.light {
+  background-color: white;
+  color: rgba(0, 0, 0, 0.9);
+}
+#mode-swap:hover {
+  transform: scale(1.05);
+  background-color: rgb(255, 145, 145);
+  border: 1px solid rgb(255, 88, 88);
+}
 #stop-button-menu {
   position: absolute;
   bottom: 100px; 

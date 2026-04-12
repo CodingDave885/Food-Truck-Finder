@@ -16,7 +16,8 @@ const closedIcon = L.icon({
   popupAnchor: [0, -40],
 });
 
-const modeBox = document.getElementById("light-mode-box");
+//Swaps between light and dark mode by changing the map url the tiles pull from
+//Alex Troeschel, 4/11/2026 @ 10:19pm
 const modeBtn = document.getElementById("mode-swap");
 var isLight = false;
 
@@ -24,10 +25,12 @@ function swapModes() {
   if (isLight == false){
     isLight = true;
     tiles.setUrl('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').redraw();
+    modeBtn.classList.add("light");
   }
   else{
     isLight = false;
     tiles.setUrl('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').redraw();
+    modeBtn.classList.remove("light");
   }
 }
 modeBtn.addEventListener('click', swapModes);
