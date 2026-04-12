@@ -8,13 +8,15 @@
 
 body {
   font-family: "Manrope", sans-serifs;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #1b1b1b;
   padding-bottom: 60px;
 
   display: flex;
   align-items: center;
   flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
 
   color: #fff;
   background:
@@ -27,7 +29,7 @@ body {
         transparent 1px,
         transparent 40px
       ),
-    fixed
+    scroll
       repeating-linear-gradient(
         to right,
         #2b2b2b,
@@ -36,6 +38,27 @@ body {
         transparent 40px
       )
       #070707;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0, 194, 255, 0.08), transparent 22%),
+    radial-gradient(circle at 75% 45%, rgba(251, 227, 49, 0.06), transparent 20%);
+  animation: backgroundDrift 12s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundDrift {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  100% {
+    transform: translate(20px, -15px) scale(1.05);
+  }
 }
 
 nav {
@@ -153,7 +176,7 @@ nav {
   width: 100%;
   max-width: 420px;
   display: block;
-  filter: drop-shadow(10px 10px 20px rgba(222, 239, 153, 0.594));
+  filter: drop-shadow(10px 10px 20px rgba(222, 239, 153, 0.267));
 }
 
 h1 {
@@ -989,4 +1012,312 @@ footer a {
 footer a:hover {
     color: #fbe331;
     text-shadow: 0 0 10px #fbe331;
+}
+
+.features {
+  background: transparent;
+  border-top: 1px solid rgba(41, 41, 41, 0.25);
+  padding: 120px 40px 100px;
+  text-align: center;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1dd3a0;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.features-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.features-items {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  text-align: left;
+}
+
+.card, .middle {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 28px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.card.visible, .middle.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card:hover, .middle:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.cards .card:nth-child(1) { transition-delay: 0s; }
+.cards .card:nth-child(2),
+.cards .middle            { transition-delay: 0.15s; }
+.cards .card:nth-child(3) { transition-delay: 0.3s; }
+
+.nearby-trucks-card,
+.location-card,
+.reviews-card {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  transition: background 0.3s ease;
+}
+
+.nearby-trucks-card { background: rgba(0, 190, 150, 0.12); }
+.location-card      { background: rgba(245, 200, 66, 0.12); }
+.reviews-card       { background: rgba(120, 100, 220, 0.12); }
+
+.nearby-trucks-card:hover { background: rgba(0, 190, 150, 0.25); }
+.location-card:hover      { background: rgba(245, 200, 66, 0.25); }
+.reviews-card:hover       { background: rgba(120, 100, 220, 0.25); }
+
+.nearby-trucks-card:hover i,
+.location-card:hover i,
+.reviews-card:hover i {
+  transform: scale(1.2);
+}
+
+.card h3, .middle h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.card p, .middle p {
+  font-size: 12px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.card a, .middle a {
+  font-size: 12px;
+  color: #1dd3a0;
+  text-decoration: none;
+  transition: color 0.2s ease, letter-spacing 0.2s ease;
+}
+
+.card a:hover, .middle a:hover {
+  color: #fff;
+  letter-spacing: 0.3px;
+}
+
+.pill-soon {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 20px;
+  background: rgba(120, 100, 220, 0.12);
+  color: #9b89f0;
+  margin-bottom: 8px;
+}
+
+.section-blob {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 32px 52px;
+  margin-bottom: 48px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.section-blob.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #555;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  animation: bounce 2s infinite;
+  cursor: default;
+}
+
+.scroll-indicator i {
+  font-size: 14px;
+  color: #1dd3a0;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(8px); }
+}
+
+.about-section {
+  background: #0d0d0d;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 100px 40px;
+  width: 100%;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.about-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(29, 211, 160, 0.1);
+  border: 1px solid rgba(29, 211, 160, 0.25);
+  color: #1dd3a0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.about-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.about-desc {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.about-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.about-github:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.about-right {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+.stat-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stat-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px);
+}
+
+.stat-number {
+  font-size: 30px;
+  font-weight: 700;
+  color: #1dd3a0;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #555;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.stat-card:nth-child(1) { transition-delay: 0s; }
+.stat-card:nth-child(2) { transition-delay: 0.1s; }
+.stat-card:nth-child(3) { transition-delay: 0.2s; }
+.stat-card:nth-child(4) { transition-delay: 0.3s; }
+.stat-card:nth-child(5) { transition-delay: 0.4s; }
+.stat-card:nth-child(6) { transition-delay: 0.5s; }
+
+.about-left {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.about-left.visible {
+  opacity: 1;
+  transform: translateY(0);
 }

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> <!--Updated so my icons would work-->
     <title>{{title}}</title>
 </head>
 <!--Creates the navigation bar at the top of the screen, containing buttons for each page-->
@@ -27,10 +27,10 @@
     {%endblock%}
 
     <footer>
-        <p> 2026 Foodtruck Finder </p> <!-- Author: Andre Nunes da Silva | 04/09/26 @ 4:43PM-->
-        <p><a href="https://gitlab.cci.drexel.edu/cid/2526/ws1023/62/gc3/drexel-food-truck-interactive-map"> Open Sourced</a> <b>|-----|</b> <a href="{{ url_for('about') }}"> Contact Us </a></p>
+        <p> 2026 Foodtruck Finder | <a href="https://gitlab.cci.drexel.edu/cid/2526/ws1023/62/gc3/drexel-food-truck-interactive-map"> Open Sourced</a> <b>|</b> <a href="{{ url_for('about') }}"> Contact Us </a></p> <!-- Author: Andre Nunes da Silva | 04/09/26 @ 4:43PM-->
     </footer>
 
     <script src="{{ url_for('static', filename='js/functions/active.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/functions/visual/scrolling.js') }}"></script>
 </body>
 </html>
