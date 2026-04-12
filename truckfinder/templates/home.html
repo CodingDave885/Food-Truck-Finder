@@ -20,6 +20,10 @@
             <span>Get Started</span>
         </button>
         </form>
+        <div class="scroll-indicator">
+        <span>Scroll down</span>
+        <i class="fa-solid fa-chevron-down"></i>
+        </div>
         </div>
     <!--Food truck image-->
     <div class="hero-image">
@@ -28,4 +32,88 @@
 </div>
 <div>
 </div>
+
+<!-- Feature Cards | Authored: Andre Nunes da Silva | Start time @ 1:28PM 4 12 26-->
+<section class="features">
+<div class="section-blob">
+    <p class="label">Why use us?</p>
+    <h2 class="features-title">We have everything you need to eat well.</h2>
+    <p class="features-items">Features that make finding foodtruck actually easy.</p>
+<div>
+
+<div class="cards">
+    <div class="card">
+        <div class="nearby-trucks-card">
+            <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <h3>Find nearby trucks</h3>
+        <p>See every food truck within your radius on our interactive map, track their location with one button and be there in minutes.</p>
+        <a href="{{ url_for('map_page') }}">Explore the map</a>
+    </div>
+
+    <div class="middle">
+        <div class="location-card">
+            <i class="fa-solid fa-clock"></i>
+        </div>
+        <h3>Live locations</h3>
+        <p>Track trucks and their location in real time. No more showing up and getting shown up.</p>
+        <a href="{{ url_for('map_page') }}">See live map</a>
+    </div>
+
+     <div class="card">
+      <span class="pill-soon">Coming soon</span>
+      <div class="reviews-card">
+        <i class="fa-solid fa-star"></i>
+      </div>
+      <h3>Reviews</h3>
+      <p>Real reviews from real students, rate meals, leave a pic, help the drexel community find its best bites.</p>
+      <a href="#">Read reviews</a>
+    </div>
+
+</div>
+</section>
+
+<section class="about-section">
+
+  <div class="about-grid">
+
+    <div class="about-left">
+  <span class="about-badge">Open sourced</span>
+  <h2 class="about-title">Built by Drexel students, <ul>for Drexel students.</ul></h2>
+  <p class="about-desc">Foodtruck Finder is a free and open sourced project started at Drexel University. We got tired at trying to find foodtrucks with no avail, so we created a solution ourselves.</p>
+  <a href="https://gitlab.cci.drexel.edu/cid/2526/ws1023/62/gc3/drexel-food-truck-interactive-map" class="about-github">
+    <i class="fa-brands fa-gitlab"></i> View on GitLab
+  </a>
+</div>
+    <div class="about-right">
+      <div class="stat-card">
+        <span class="stat-number">5</span>
+        <span class="stat-label">Trucks tracked</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">125+</span>
+        <span class="stat-label">Menu items</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">4</span>
+        <span class="stat-label">Cuisines</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">5</span>
+        <span class="stat-label">Developers</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">7</span>
+        <span class="stat-label">Days a week</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">100%</span>
+        <span class="stat-label">Free to use</span>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
 {% endblock %}
