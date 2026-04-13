@@ -959,18 +959,21 @@ html {
 /* Sidebar panel */
 /* Author: Chat GPT "How to make a Pop-out Sidebar" 4/8/2026 */
 #sidePanel {
-    padding-top: 50px;
+    padding-top: 35px;
     position: fixed;
     top: 80px;
     left: 0;
     width: 250px;
-    height: 100%;
+    height: calc(100vh - 80px);
+
     background: #fff;
-    box-shadow: 2px 0 8px rgba(0,0,0,0.3);
-    overflow-y: auto;
+
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     z-index: 1100;       /* below toggle button */
+
+    display: flex;
+    flex-direction: column;
 }
 
 /* Sidebar open state */
@@ -980,12 +983,18 @@ html {
 
 /* Sidebar header */
 #sidePanel h2 {
-    padding: 15px;
     margin: 0 0 20px 0;  /* pushes truck list down */
     font-size: 1.2rem;
     border-bottom: 1px solid #ddd;
-}
 
+    flex-shrink: 0;
+    background: #fff;
+}
+#truckList {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
 /* Sidebar toggle button */
 #togglePanel {
     position: fixed;       /* fixed to viewport, not inside sidebar */
