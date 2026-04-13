@@ -1361,3 +1361,11 @@ footer a:hover {
   opacity: 1;
   transform: translateY(0);
 }
+
+.miles-left {
+  color: #fff;
+}
+
+.light .miles-left {
+  color: rgba(0, 0, 0, 0.8);
+}
