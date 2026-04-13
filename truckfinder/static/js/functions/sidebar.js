@@ -51,11 +51,11 @@ document.addEventListener("DOMContentLoaded", () => {
                             const popupContainer = marker.getPopup().getElement();
                             if (!popupContainer) {
                                 // Fallback: if popup element isn't ready, fly to marker directly
-                                map.flyTo(marker.getLatLng(), 16, { animate: true });
+                                map.flyTo(marker.getLatLng(), 19, { animate: true });
                                 return;
                             }
 
-                            const targetZoom = 16;
+                            const targetZoom = 19;
                             // Convert the marker's lat/lng to pixel coordinates at current zoom
                             const px = map.project(marker.getLatLng(), targetZoom);
 
