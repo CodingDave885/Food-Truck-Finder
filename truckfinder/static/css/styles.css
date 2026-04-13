@@ -1369,3 +1369,27 @@ footer a:hover {
 .light .miles-left {
   color: rgba(0, 0, 0, 0.8);
 }
+
+.dark-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  animation-delay: 0.5s;
+}
+
+.dark-btn:hover {
+  background: #2a2a2a;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+
