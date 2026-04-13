@@ -60,7 +60,7 @@ function startTracking(truckId, truckLat, truckLng) { // 3 Parameters, takes in 
             instructionBox.innerHTML = `
     <small style="color: #888; display: block;">${walkTimeMinutes} min walk</small>
     <strong>${nextStep.text}</strong> 
-    <span style="color: #fff; margin-left: 10px;">${totalMiles} mi left</span>
+    <span class="miles-left" style="margin-left: 10px;">${totalMiles} mi left</span>
 `;
         }
     });
