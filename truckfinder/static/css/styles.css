@@ -82,6 +82,13 @@ nav {
   color: #fbe331;
   letter-spacing: 1px;
 }
+.light .logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2563eb;
+  letter-spacing: 1px;
+}
+
 
 .nav-links {
   list-style: none;
@@ -123,6 +130,25 @@ nav {
   height: 2px;
   background: #fbe331;
   border-radius: 2px;
+}
+/* Author: David Liberatore */
+/* LIGHT MODE OVERRIDES */
+.light .nav-links li a {
+  color: #1a202c;
+}
+
+.light .nav-links li a:hover {
+  color: "red";
+  text-shadow: none;
+}
+
+.light .nav-links li a.active {
+  color: #2563eb;
+  text-shadow: none;
+}
+
+.light .nav-links li a.active::after {
+  background: #2563eb;
 }
 
 .span-container {
@@ -341,7 +367,7 @@ p2 {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
 }
-#mode-swap.light {
+.light #mode-swap {
   background-color: white;
   color: rgba(0, 0, 0, 0.9);
 }
@@ -382,7 +408,7 @@ p2 {
 #stop-button.seen {
   right: 0;
 }
-#stop-button.light {
+.light #stop-button {
   background-color: white;
   color: rgba(0, 0, 0, 0.9)
 }
@@ -697,7 +723,7 @@ html {
   min-width: 250px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
-#routing-instructions.light {
+.light #routing-instructions {
   background: white;
   color: rgba(0, 0, 0, 0.8);
 }
@@ -975,7 +1001,7 @@ html {
     border-radius: 4px;
     box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
 }
-#togglePanel.light {
+.light #togglePanel {
   background: white;
   color: rgba(0, 0, 0, 0.8);
 }
