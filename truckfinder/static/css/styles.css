@@ -1062,9 +1062,13 @@ footer a:hover {
 }
 
 .label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  color: #1dd3a0;
+  background-image: linear-gradient(90deg, #fbe331, #00c2ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
   letter-spacing: 1.2px;
   text-transform: uppercase;
   margin-bottom: 10px;
@@ -1123,6 +1127,9 @@ footer a:hover {
 
 .nearby-trucks-card,
 .location-card,
+.favorite-card,
+.filter-card,
+.search-card,
 .reviews-card {
   width: 44px;
   height: 44px;
@@ -1135,8 +1142,11 @@ footer a:hover {
 }
 
 .nearby-trucks-card { background: rgba(0, 190, 150, 0.12); }
-.location-card      { background: rgba(245, 200, 66, 0.12); }
-.reviews-card       { background: rgba(120, 100, 220, 0.12); }
+.location-card { background: rgba(245, 200, 66, 0.12); }
+.reviews-card { background: rgba(120, 100, 220, 0.12); }
+.favorite-card { background: rgba(133, 192, 224, 0.12); }
+.filter-card {background: rgba(238, 120, 138, 0.12); }
+.search-card {background: rgba(238, 201, 120, 0.12); }
 
 .nearby-trucks-card:hover { background: rgba(0, 190, 150, 0.25); }
 .location-card:hover      { background: rgba(245, 200, 66, 0.25); }
@@ -1164,13 +1174,13 @@ footer a:hover {
 
 .card a, .middle a {
   font-size: 12px;
-  color: #1dd3a0;
+  color: #c7cee6;
   text-decoration: none;
   transition: color 0.2s ease, letter-spacing 0.2s ease;
 }
 
 .card a:hover, .middle a:hover {
-  color: #fff;
+  color: #ffffff;
   letter-spacing: 0.3px;
 }
 
@@ -1178,11 +1188,15 @@ footer a:hover {
   display: inline-block;
   font-size: 11px;
   font-weight: 600;
-  padding: 2px 10px;
+  padding: 4px 12px;
   border-radius: 20px;
-  background: rgba(120, 100, 220, 0.12);
-  color: #9b89f0;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(155, 155, 155, 0.25);
+  color: #ffffff;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   margin-bottom: 8px;
+  text-align: center;
 }
 
 .section-blob {
@@ -1390,6 +1404,18 @@ footer a:hover {
 .dark-btn:hover {
   background: #2a2a2a;
   border-color: rgba(255, 255, 255, 0.3);
+}
+
+.frosted-box {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.014);
+  border-radius: 16px;
+  padding: 20px 24px;
+  backdrop-filter: blur(0.1px);
+  animation: fadeInUp 0.8s ease-out forwards;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 40px rgba(0, 194, 255, 0.05);
 }
 
 
