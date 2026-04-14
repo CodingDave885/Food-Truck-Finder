@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function openPanel() {
         panel.classList.toggle("open");
+        toggleBtn.classList.toggle("shifted");  // ← add this line
         if (panel.classList.contains("open")) {
             toggleBtn.classList.add("light");
         }

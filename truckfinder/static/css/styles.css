@@ -983,13 +983,15 @@ html {
 
 /* Sidebar header */
 #sidePanel h2 {
-    margin: 0 0 20px 0;  /* pushes truck list down */
-    font-size: 1.2rem;
-    border-bottom: 1px solid #ddd;
-
-    flex-shrink: 0;
-    background: #fff;
+  margin: 0;
+  padding: 16px 20px 14px 20px;  /* ← update padding */
+  font-size: 1.2rem;
+  background: #0f4d92;
+  color: #ffffff;
+  border-bottom: none;
+  flex-shrink: 0;
 }
+
 
 /* Sidebar panel */
 /* Author: Chat GPT "How to make a Pop-out Sidebar" 4/8/2026 */
@@ -1021,13 +1023,18 @@ html {
 /* Sidebar header */
 #sidePanel h2 {
   margin: 0;
-  padding: 12px 16px;
-  font-size: 1.2rem;
-  background: #0f4d92;
+  padding: 14px 16px;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, #0f4d92, #1a6bbf);
   color: #ffffff;
-  border-bottom: none;
+  border-bottom: 2px solid #fbe331;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
+
 
 /* Sidebar headings */
 #sidePanel h2,
@@ -1064,22 +1071,27 @@ html {
 /* Sidebar toggle button */
 #togglePanel {
   position: fixed;
-  top: 100px;
+  top: 90px;   /* ← change from 100px to 90px */
   left: 15px;
   z-index: 1200;
   padding: 8px 14px;
   font-size: 1.2rem;
   cursor: pointer;
-  background: #0f4d92;         /* Drexel blue button */
+  background: #0f4d92;
   color: white;
   border: none;
   border-radius: 6px;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, left 0.3s ease;  /* ← add left transition */
+}
+
+#togglePanel.shifted {
+  left: 278px;  /* sidebar width (270px) + small gap */
 }
 
 #togglePanel:hover {
-  background: #0a3a6e;         /* darker blue on hover */
+  background: #0a3a6e;
+  color: #fbe331;
 }
 
 .light #togglePanel {
@@ -1090,21 +1102,26 @@ html {
 
 /* Individual truck buttons */
 .truck-btn {
-    display: block;
-    width: 100%;
-    padding: 10px 15px;
-    border: none;
-    background: #f4f4f4;
-    cursor: pointer;
-    text-align: left;
-    font-size: 1rem;
-    border-bottom: 1px solid #ddd;
-    transition: background 0.2s;
+  display: block;
+  width: 100%;
+  padding: 11px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(15, 77, 146, 0.15);
+  transition: all 0.2s ease;
+  color: #1a1a2e;
+  font-weight: 500;
 }
 
 .truck-btn:hover {
-    background: #e0e0e0;
+  background: #0f4d92;
+  color: #fbe331;
+  padding-left: 22px;   /* slides right on hover */
 }
+
 
 footer {
     width: 100%;
