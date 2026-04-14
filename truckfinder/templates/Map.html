@@ -3,12 +3,31 @@
 
 <!-- Author: David Liberatore 4/8/2026 -->
 
-<!-- Toggle Button -->
-<button id="togglePanel">☰ Trucks</button>
+<!--
+This is the sidebar header row that holds the toggle button
+and the tab buttons side by side
+-->
+<div id="sidebar-header">
+    <!--
+    The toggle button opens and closes the sidebar panel
+    -->
+    <button id="togglePanel">☰ Trucks</button>
+    <!--
+    The tab buttons let the user switch between viewing
+    all trucks or only their favorited trucks
+    -->
+    <div class="sidebar-tabs">
+        <button class="tab-btn active" onclick="switchTab('all', this)">All Trucks</button>
+        <button class="tab-btn" onclick="switchTab('favorites', this)">Favorites</button>
+    </div>
+</div>
 
 <!-- Sidebar -->
 <div id="sidePanel">
-    <h2>Food Trucks</h2>
+    <!--
+    This is an empty container that gets truck buttons
+    injected into it dynamically by sidebar.js
+    -->
     <div id="truckList"></div>
 </div>
 
