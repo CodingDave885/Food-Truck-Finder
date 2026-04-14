@@ -134,7 +134,12 @@ fetch('/api/food_trucks')
                 .addTo(window.map)
                 // Creates the popup of the marker
                 .bindPopup(`
-                    <h3>${truck.name}</h3>
+                     <div class="popup-header">
+                        <button class='favorite-button' onclick="toggleFavorite(${truck.id}, this)">
+                            <i class="${isFavorite(truck.id) ? 'fas' : 'far'} fa-bookmark"></i>
+                        </button>
+                        <h3>${truck.name}</h3>
+                    </div>
                     <p>
                         <strong></strong>
                         <!--If it is opened, do the first option
