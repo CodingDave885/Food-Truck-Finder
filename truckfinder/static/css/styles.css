@@ -1418,4 +1418,31 @@ footer a:hover {
   box-shadow: 0 0 40px rgba(0, 194, 255, 0.05);
 }
 
+.popup-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.favorite-button {
+    position: absolute;
+    left: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #aaa;
+    transition: color 0.2s ease;
+}
+
+.favorite-button:hover {
+    color: #fbe331;
+}
+
+.favorite-button .fas {
+    color: #fbe331;
+}
+
 
