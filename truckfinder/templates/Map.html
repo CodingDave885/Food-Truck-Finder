@@ -1,36 +1,12 @@
 {%extends "layout.html"%}
 {%block content%}
-
 <!-- Author: David Liberatore 4/8/2026 -->
-
-<!--
-This is the sidebar header row that holds the toggle button
-and the tab buttons side by side
--->
-<div id="sidebar-header">
-    <!--
-    The toggle button opens and closes the sidebar panel
-    -->
-    <button id="togglePanel">☰ Trucks</button>
-    <!--
-    The tab buttons let the user switch between viewing
-    all trucks or only their favorited trucks
-    -->
-    <div class="sidebar-tabs">
-        <button class="tab-btn active" onclick="switchTab('all', this)">All Trucks</button>
-        <button class="tab-btn" onclick="switchTab('favorites', this)">Favorites</button>
-    </div>
-</div>
-
+<button id="togglePanel">☰</button>
 <!-- Sidebar -->
 <div id="sidePanel">
-    <!--
-    This is an empty container that gets truck buttons
-    injected into it dynamically by sidebar.js
-    -->
+    <h2>Food Trucks</h2>
     <div id="truckList"></div>
 </div>
-
 <!--
 This is the menu panel that is used for the menu
 It is invisible at first, and then become visible when
@@ -63,12 +39,11 @@ The menu panel makes a container for the side panel
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> <!-- Import leaflet -->
     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script> <!-- Import open source routing -->
     <!-- Refactored Code into single JS files for better & cleaner code execution -->
+    <script src="{{ url_for('static', filename='js/functions/favorite.js') }}"></script>
     <script src="{{ url_for('static', filename='js/map.js') }}"></script>\
     <script src="{{ url_for('static', filename='js/functions/sidebar.js') }}"></script>
     <script src="{{ url_for('static', filename='js/routing.js') }}"></script>
     <script src="{{ url_for('static', filename='js/functions/menu.js') }}"></script>
     <script src="{{ url_for('static', filename='js/functions/calculator.js') }}"></script>
     <script src="{{ url_for('static', filename='js/functions/location.js') }}"></script>    
-    <script src="{{ url_for('static', filename='js/functions/favorite.js') }}"></script>
-
 {%endblock%}
