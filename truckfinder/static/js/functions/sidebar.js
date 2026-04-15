@@ -14,8 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function openPanel() {
         panel.classList.toggle("open");
-  toggleBtn.classList.toggle("shifted");  // ← add this line
-        sidebarHeader.classList.toggle("open"); // show/hide the tab buttons
+        toggleBtn.classList.toggle("shifted");  // ← add this line
+        if (sidebarHeader) sidebarHeader.classList.toggle("open"); // show/hide the tab buttons
         if (panel.classList.contains("open")) {
             toggleBtn.classList.add("light");
         }
