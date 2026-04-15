@@ -1,37 +1,42 @@
 {%extends "layout.html"%}
 {% block content %}
-    <div class="hero">
-        <!--Builds the home page, where you find the welcome message-->
-        <div class="hero-text">
-        <h1>
-            <u>Welcome</u> <span class='wave'>👋</span>
-        </h1>
+    <div class="frosted-box">
+  <div class="hero">
+    <!--Builds the home page, where you find the welcome message-->
+    <div class="hero-text">
+      <h1>
+        <u>Welcome</u> <span class='wave'>👋</span>
+      </h1>
 
-        <p1>Have you ever wanted to find a 
-            <span class="span-container">
-                <span class="drexel-pin"><b>Drexel</b></span>
-            </span>
-            <b class="highlight">
-                foodtruck</b>, but <lol class="strike">google or apple maps</lol> didn't offer it? <span class="nervous">😬</span></p1>
-        <br><br><p2>Well, we have a <u class="underline_class">solution</u>.</p2></br></br>
-        <!--Creates the button to access the map on the home page-->
-        <form action="{{ url_for('map_page')}}">
+      <p1>Have you ever wanted to find a 
+        <span class="span-container">
+          <span class="drexel-pin"><b>Drexel</b></span>
+        </span>
+        <b class="highlight">foodtruck</b>, but <lol class="strike">google or apple maps</lol> didn't offer it? <span class="nervous">😬</span>
+      </p1>
+      <br><br><p2>Well, we have a <u class="underline_class">solution</u>.</p2></br></br>
+
+      <!--Creates the button to access the map on the home page-->
+      <form action="{{ url_for('map_page')}}">
         <button type="submit" class="dark-btn">
           <i class="fas fa-arrow-right"></i>
-            <span>Get Started</span>
+          <span>Get Started</span>
         </button>
-        </form>
-        <div class="scroll-indicator">
-        <span>Scroll down</span>
-        <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        </div>
+      </form>
+    </div>
+
     <!--Food truck image-->
     <div class="hero-image">
-        <img src="../static/images/food-truck-ram-trucks-fried-chicken-food-truck-eec039e6846d8ad659e85043d5cafeb6.png" alt="placeholder">
+      <img src="../static/images/food-truck-ram-trucks-fried-chicken-food-truck-eec039e6846d8ad659e85043d5cafeb6.png" alt="placeholder">
     </div>
-</div>
-<div>
+
+  </div>
+
+  <div class="scroll-indicator">
+    <span>Scroll down</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+
 </div>
 
 <!-- Feature Cards | Authored: Andre Nunes da Silva | Start time @ 1:28PM 4 12 26-->
@@ -71,6 +76,34 @@
       <a href="#">Read reviews</a>
     </div>
 
+     <div class="card">
+      <div class="favorite-card">
+        <i class="fa-solid fa-bookmark"></i>
+      </div>
+      <h3>Favorites</h3>
+      <p>Found a new favorite foodtruck? Add it to your favorites by clicking on the bookmark button! Saved locally to your device and you can access your favorites anytime if you forget the name of a foodtruck or where it's located.</p>
+    </div>
+
+    <div class="card">
+      <span class="pill-soon">Coming soon</span>
+      <div class="filter-card">
+        <i class="fa-solid fa-filter"></i>
+      </div>
+      <h3>Filter</h3>
+      <p>Know what you want to eat, but don't know the foodtrucks around? Now you can filter by cuisine on our sidepanel using a dropdown menu!</p>
+    </div>
+
+      <div class="card">
+      <span class="pill-soon">Coming soon</span>
+      <div class="search-card">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <h3>Search</h3>
+      <p>Know the name of a foodtruck, but don't know where it's at. You can search the name of the foodtruck on our map page and be able to track their live location.</p>
+    </div>
+
+    
+
 </div>
 </section>
 
@@ -88,11 +121,11 @@
 </div>
     <div class="about-right">
       <div class="stat-card">
-        <span class="stat-number">5</span>
+        <span class="stat-number">17</span>
         <span class="stat-label">Trucks tracked</span>
       </div>
       <div class="stat-card">
-        <span class="stat-number">125+</span>
+        <span class="stat-number">300+</span>
         <span class="stat-label">Menu items</span>
       </div>
       <div class="stat-card">
