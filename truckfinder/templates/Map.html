@@ -1,10 +1,16 @@
 {%extends "layout.html"%}
 {%block content%}
 <!-- Author: David Liberatore 4/8/2026 -->
-<button id="togglePanel">☰</button>
+<div id="sidebar-header">
+    <button id="togglePanel">☰ Trucks</button>
+</div>
 <!-- Sidebar -->
 <div id="sidePanel">
     <h2>Food Trucks</h2>
+    <div class="sidebar-tabs">
+        <button class="tab-btn active" onclick="switchTab('all', this)">All Trucks</button>
+        <button class="tab-btn" onclick="switchTab('favorites', this)">Favorites</button>
+    </div>
     <div id="truckList"></div>
 </div>
 <!--
