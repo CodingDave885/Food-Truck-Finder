@@ -159,6 +159,9 @@ fetch('/api/food_trucks')
                     <!--
                     Calls showMenu(), and passes the truck's db
                     -->
+                    <div id="rating-anchor-${truck.id}">
+                        <div class="rating-section" style="opacity:0.5;font-size:11px;padding:8px 12px;">Loading rating…</div>
+                    </div>
                     <div class="popup-button-row">
                     <button class='menu-button' onclick="showMenu(${truck.id})">
                         <i class="fas fa-bars"></i> MENU
@@ -184,11 +187,13 @@ fetch('/api/food_trucks')
 
 // Tells the map that whenever someone opens a popup, run this function
 map.on('popupopen', function(e) {
-    // Gets the lat / long of the popup, and stores it in the px variable
     let px = map.project(e.target._popup._latlng);
-    // Gets the y coordinate of the popup, and moves the mapping up
-    px.y -= e.target._popup._container.clientHeight/2;
-    map.panTo(map.unproject(px),{animate: true}); // pan to new center
+    px.y -= e.target._popup._container.clientHeight / 2;
+    map.panTo(map.unproject(px), { animate: true });
+
+    const content = e.target._popup._content;
+    const match = typeof content === 'string' ? content.match(/rating-anchor-(\d+)/) : null;
+    if (match) loadRatingIntoPopup(parseInt(match[1]));
 });
 
 function onMapClick(e) {
@@ -208,3 +213,4 @@ function onLocationError(e) {
 }
 
 map.on('locationerror', onLocationError);
+

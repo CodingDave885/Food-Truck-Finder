@@ -1,8 +1,9 @@
-from truckfinder import app
-from truckfinder.models import FoodTruck, MenuItem, FoodTruckHours
-from flask import render_template, url_for
+from truckfinder import app, db
+from truckfinder.models import FoodTruck, MenuItem, FoodTruckHours, TruckRating
+from flask import render_template, url_for, request
 from flask import jsonify
 from datetime import datetime
+
 
 
 # These routes connect to each html page, to make the path
@@ -136,3 +137,45 @@ def is_truck_open(hours_row, now=None):
     # Overnight hours (ex. 22:00 -> 2:40)
     # This returns a boolean if the truck opens overnight
     return current_time >= open_time or current_time <= close_time
+
+
+@app.route('/api/trucks/<int:truck_id>/rating', methods=['GET'])
+def get_truck_rating(truck_id):
+    ratings = TruckRating.query.filter_by(truck_id=truck_id).all()
+    total = len(ratings)
+    avg = round(sum(r.stars for r in ratings) / total, 2) if total > 0 else 0
+    return jsonify({ "avg_rating": avg, "total_ratings": total })
+
+@app.route('/api/trucks/<int:truck_id>/rating', methods=['POST'])
+def post_truck_rating(truck_id):
+    body    = request.get_json()
+    user_id = body.get("user_id")
+    stars   = int(body.get("stars", 0))
+    if not user_id or not (1 <= stars <= 5):
+        return jsonify({"error": "Invalid payload"}), 400
+    existing = TruckRating.query.filter_by(truck_id=truck_id, user_id=user_id).first()
+    old_stars = existing.stars if existing else None
+    if existing:
+        existing.stars = stars
+        existing.updated_at = datetime.utcnow()
+    else:
+        db.session.add(TruckRating(truck_id=truck_id, user_id=user_id, stars=stars))
+    db.session.commit()
+    print(f"[RATING] truck={truck_id} user={user_id} old={old_stars} new={stars}")
+    all_ratings = TruckRating.query.filter_by(truck_id=truck_id).all()
+    total = len(all_ratings)
+    avg = round(sum(r.stars for r in all_ratings) / total, 2)
+    return jsonify({ "avg_rating": avg, "total_ratings": total })
+
+@app.route('/api/trucks/<int:truck_id>/rating/delete', methods=['POST'])
+def delete_truck_rating(truck_id):
+    body = request.get_json()
+    user_id = body.get("user_id")
+    existing = TruckRating.query.filter_by(truck_id=truck_id, user_id=user_id).first()
+    if existing:
+        db.session.delete(existing)
+        db.session.commit()
+    all_ratings = TruckRating.query.filter_by(truck_id=truck_id).all()
+    total = len(all_ratings)
+    avg = round(sum(r.stars for r in all_ratings) / total, 2) if total > 0 else 0
+    return jsonify({ "avg_rating": avg, "total_ratings": total })

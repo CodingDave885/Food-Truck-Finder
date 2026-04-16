@@ -1,5 +1,6 @@
 from truckfinder import db
 from sqlalchemy import Time
+from datetime import datetime
 
 class FoodTruck(db.Model):
     # This gives each food truck its own primary key
@@ -19,6 +20,19 @@ class FoodTruck(db.Model):
     # This sets a relation between hours and Food Trucks
     # This is done because one truck can have multiple closing times
     hours = db.relationship('FoodTruckHours', backref="truck", lazy=True)
+
+# Stores one rating per user per truck in the database
+# Each row represents a single user's star rating for a specific food truck
+class TruckRating(db.Model):
+    __tablename__ = 'truck_ratings'
+    id         = db.Column(db.Integer, primary_key=True)
+    truck_id   = db.Column(db.Integer, db.ForeignKey('food_truck.id'), nullable=False)
+    # Anonymous user ID generated in the browser and stored in localStorage
+    user_id    = db.Column(db.String(64), nullable=False)
+    stars      = db.Column(db.Integer, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    __table_args__ = (db.UniqueConstraint('truck_id', 'user_id'),)
 
 # This schema is for the hours of the Food Trucks
 # Says whether it is open
@@ -41,3 +55,4 @@ class MenuItem(db.Model):
     price = db.Column(db.Float, nullable=False)
     # This links to teh Food Truck database, basically allows you to query all food that belong to truck
     food_truck_id = db.Column(db.Integer, db.ForeignKey('food_truck.id'), nullable=False)
+
