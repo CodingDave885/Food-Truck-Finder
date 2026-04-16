@@ -155,7 +155,6 @@ fetch('/api/food_trucks')
                     <ul class='hours-list'>
                         ${buildHoursList(truck.hours)}
                     </ul>
-                    <br>
                     <!--
                     Calls showMenu(), and passes the truck's db
                     -->
@@ -188,7 +187,7 @@ fetch('/api/food_trucks')
 // Tells the map that whenever someone opens a popup, run this function
 map.on('popupopen', function(e) {
     let px = map.project(e.target._popup._latlng);
-    px.y -= e.target._popup._container.clientHeight / 2;
+    px.y -= e.target._popup._container.clientHeight / 2 + 80;
     map.panTo(map.unproject(px), { animate: true });
 
     const content = e.target._popup._content;

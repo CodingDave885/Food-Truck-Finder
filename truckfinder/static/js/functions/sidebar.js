@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                             // Adjust the vertical pixel coordinate by half the popup height
                             // This ensures the popup is centered vertically above the marker
-                            px.y -= popupContainer.clientHeight / 2;
+                            px.y -= popupContainer.clientHeight / 2 + 80;
 
                             // Convert the adjusted pixel coordinates back to lat/lng
                             const centeredLatLng = map.unproject(px, targetZoom);
