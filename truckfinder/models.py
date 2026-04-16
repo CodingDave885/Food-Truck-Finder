@@ -21,11 +21,13 @@ class FoodTruck(db.Model):
     # This is done because one truck can have multiple closing times
     hours = db.relationship('FoodTruckHours', backref="truck", lazy=True)
 
-
+# Stores one rating per user per truck in the database
+# Each row represents a single user's star rating for a specific food truck
 class TruckRating(db.Model):
     __tablename__ = 'truck_ratings'
     id         = db.Column(db.Integer, primary_key=True)
     truck_id   = db.Column(db.Integer, db.ForeignKey('food_truck.id'), nullable=False)
+    # Anonymous user ID generated in the browser and stored in localStorage
     user_id    = db.Column(db.String(64), nullable=False)
     stars      = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)

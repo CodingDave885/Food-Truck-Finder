@@ -1576,3 +1576,31 @@ footer a:hover {
 .star-btn:hover { transform: scale(1.15); color: #f5c518; }
 .rating-summary { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #aaa; }
 .avg-score { font-size: 13px; font-weight: 600; color: #f5c518; }
+
+.rating-actions {
+  display: flex;
+  gap: 6px;
+  margin: 6px 0;
+}
+.submit-rating-btn {
+  background: #f5c518;
+  color: #111;
+  border: none;
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.submit-rating-btn:hover { background: #e0b215; }
+.takeback-btn {
+  background: none;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 12px;
+  color: #aaa;
+  cursor: pointer;
+}
+.takeback-btn:hover { border-color: #e74c3c; color: #e74c3c; }
+

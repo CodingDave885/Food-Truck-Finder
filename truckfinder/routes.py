@@ -166,3 +166,16 @@ def post_truck_rating(truck_id):
     total = len(all_ratings)
     avg = round(sum(r.stars for r in all_ratings) / total, 2)
     return jsonify({ "avg_rating": avg, "total_ratings": total })
+
+@app.route('/api/trucks/<int:truck_id>/rating/delete', methods=['POST'])
+def delete_truck_rating(truck_id):
+    body = request.get_json()
+    user_id = body.get("user_id")
+    existing = TruckRating.query.filter_by(truck_id=truck_id, user_id=user_id).first()
+    if existing:
+        db.session.delete(existing)
+        db.session.commit()
+    all_ratings = TruckRating.query.filter_by(truck_id=truck_id).all()
+    total = len(all_ratings)
+    avg = round(sum(r.stars for r in all_ratings) / total, 2) if total > 0 else 0
+    return jsonify({ "avg_rating": avg, "total_ratings": total })

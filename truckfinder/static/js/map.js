@@ -159,7 +159,6 @@ fetch('/api/food_trucks')
                     <!--
                     Calls showMenu(), and passes the truck's db
                     -->
-                    // ADD THIS right above the popup-button-row div:
                     <div id="rating-anchor-${truck.id}">
                         <div class="rating-section" style="opacity:0.5;font-size:11px;padding:8px 12px;">Loading rating…</div>
                     </div>
