@@ -12,7 +12,7 @@ class FoodTruck(db.Model):
     # Lat and Long for the Leaflet map
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
-    description = db.Column(db.Text, nullable=False)
+    description = db.Column(db.Text, nullable=True)
     # This makes a relationship with the Menu Item
     # One food truck has many items, this doesn't show up as a column though
     # backref=truck means that you can access the attribute as "truck" from the other schema
@@ -55,4 +55,12 @@ class MenuItem(db.Model):
     price = db.Column(db.Float, nullable=False)
     # This links to teh Food Truck database, basically allows you to query all food that belong to truck
     food_truck_id = db.Column(db.Integer, db.ForeignKey('food_truck.id'), nullable=False)
+
+class SubmittedTruck(db.Model):
+    __tablename__ = "submitted_trucks"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
 

@@ -1604,3 +1604,52 @@ footer a:hover {
 }
 .takeback-btn:hover { border-color: #e74c3c; color: #e74c3c; }
 
+#mini_map {
+    height: 550px;
+    width: 550px;
+    border-radius: 10px;
+}
+
+#coordsDisplay {
+  font-size: 18px;
+}
+
+.form-label {
+    font-size: 18px;
+}
+
+#form_title {
+    margin-bottom:20px;
+}
+input {
+  padding: 15px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  font-size:18px;
+}
+.my_btn {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 20px;
+  margin-left:0px;
+
+  transition: all 0.2s ease;
+
+}
+.my_btn:hover {
+  background-color: #fbe331; /* yellow */
+  color: black;
+
+  transform: translateY(-2px); /* slight lift */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+input:focus {
+  border-color: #007BFF;
+  box-shadow: 0 0 5px rgba(0,123,255,0.5);
+}

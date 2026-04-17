@@ -1,9 +1,9 @@
 from truckfinder import app, db
-from truckfinder.models import FoodTruck, MenuItem, FoodTruckHours, TruckRating
-from flask import render_template, url_for, request
+from truckfinder.models import FoodTruck, MenuItem, FoodTruckHours, TruckRating, SubmittedTruck
+from flask import render_template, url_for, request, redirect
 from flask import jsonify
 from datetime import datetime
-
+from truckfinder.forms import FoodTruckForm
 
 
 # These routes connect to each html page, to make the path
@@ -24,6 +24,32 @@ def about():
 @app.route("/helper")
 def info():
     return render_template("TruckItemsRaw.html")
+
+@app.route("/userForm", methods=["GET", "POST"])
+def userForm():
+    form = FoodTruckForm()
+
+    if form.validate_on_submit():
+        new_truck = SubmittedTruck(
+            name=form.name.data,
+            latitude=float(form.latitude.data),
+            longitude=float(form.longitude.data)
+        )
+
+        db.session.add(new_truck)
+        db.session.commit()
+
+        return redirect(url_for("home"))
+
+    return render_template("userForm.html", form=form)
+
+# This is just for development stages
+# Gets rid of all submissions
+@app.route("/reset_submissions")
+def reset_submissions():
+    SubmittedTruck.query.delete()
+    db.session.commit()
+    return "Submitted trucks reset!"
 
 # This route is used as a helper route
 # This is only called by the JavaScript in the main page

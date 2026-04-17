@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+{% block content%}
+<h2 id="form_title">Add a Food Truck</h2>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    {{ form.name.label(class="form-label") }}<br>
+    {{ form.name() }}<br><br>
+
+    <!-- Hidden coordinate fields -->
+    {{ form.latitude(id="latitude") }}
+    {{ form.longitude(id="longitude") }}
+
+    <div id="mini_map"></div>
+
+    <p id="coordsDisplay">Click map to choose location</p>
+
+    {{ form.submit(class="my_btn") }}
+</form>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+    // Default center (Philly area since you're at Drexel)
+    const map = L.map("mini_map").setView([39.9566, -75.1899], 16.5);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(map);
+
+    let marker = null;
+
+    map.on('click', function(e) {
+        const { lat, lng } = e.latlng;
+
+        // Remove old marker
+        if (marker) {
+            map.removeLayer(marker);
+        }
+
+        // Add new draggable marker
+        marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+
+        updateInputs(lat, lng);
+
+        // Allow fine-tuning
+        marker.on('dragend', function() {
+            const pos = marker.getLatLng();
+            updateInputs(pos.lat, pos.lng);
+        });
+    });
+
+    function updateInputs(lat, lng) {
+        document.getElementById("latitude").value = lat;
+        document.getElementById("longitude").value = lng;
+    }
+</script>
+{% endblock %}
