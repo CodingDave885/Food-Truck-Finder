@@ -1,5 +1,6 @@
 // File refactored on 04/07/26 @ 6:58 PM by Andre Nunes da Silva
-
+var slider = document.getElementById("distance");
+var lastDist = 100;
 let userMarker, accuracyCircle;
 
 //Runs when the users location is checked
@@ -21,6 +22,26 @@ map.on('locationfound', (e) => {
                 e.latlng, 
                 currentWaypoints[1].latLng
             ]);
+        }
+        if (slider.value != lastDist) {
+            if (slider.value != 100){
+                fetch("api/food_trucks")
+                    .then(res => res.json())
+                    .then(trucks => {
+                        trucks.forEach(truck => {
+                            alert("Distance" + str(userMarker.distanceTo([truck.longitude, truck.latitude])))
+                            if (userMarker.distanceTo([truck.longitute, truck.latitude]) > radius * 10){
+                                window.markers[truck.id].setZIndexOffset(-1000);
+                            }
+                            else {
+                                window.markers[truck.id].setZIndexOffset(500);
+                            }
+                        })
+                    })
+            }
+        }
+        else {
+
         }
     }
     //If routing to a truck, check waypoints again only if
