@@ -34,6 +34,18 @@ class TruckRating(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     __table_args__ = (db.UniqueConstraint('truck_id', 'user_id'),)
 
+# New fields, Author: Andre Nunes da Silva @ 04/20/26
+
+class TruckReview(db.Model):
+    __tablename__ = "truck_reviews"
+    id = db.Column(db.Integer, primary_key=True)
+    truck_id = db.Column(db.Integer, db.ForeignKey('food_truck.id'), nullable=False)
+    user_id = db.Column(db.String(64), nullable=False)
+    review_text = db.Column(db.Text, nullable=False)
+    display_name = db.Column(db.String(50), nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    __table_args__ = (db.UniqueConstraint('truck_id', 'user_id'),)
+
 # This schema is for the hours of the Food Trucks
 # Says whether it is open
 class FoodTruckHours(db.Model):
