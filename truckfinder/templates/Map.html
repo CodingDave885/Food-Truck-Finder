@@ -4,6 +4,10 @@
 <div id="sidebar-header">
     <button id="togglePanel">☰ Trucks</button>
 </div>
+
+<!-- Updated Script: passes truckID from flask to JS for url-addresable reviews-->
+<div id="review-config" data-truck-id="{{ open_reviews_for if open_reviews_for is defined else '' }}" style="display:none"></div>
+
 <!-- Sidebar -->
 <div id="sidePanel">
     <h2>Food Trucks</h2>
@@ -42,15 +46,32 @@ The menu panel makes a container for the side panel
 
 <div id="routing-instructions">Select a truck to start navigating...</div> <!--Head div, shows the little pill on the bottom routing-instructions is the class name-->
 <div id="map"></div>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> <!-- Import leaflet -->
-    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script> <!-- Import open source routing -->
-    <!-- Refactored Code into single JS files for better & cleaner code execution -->
-    <script src="{{ url_for('static', filename='js/functions/favorite.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/map.js') }}"></script>\
-    <script src="{{ url_for('static', filename='js/functions/rating.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/functions/sidebar.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/routing.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/functions/menu.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/functions/calculator.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/functions/location.js') }}"></script>    
+
+<div id="review-panel" class="review-panel hidden">
+  <div class="review-panel-header">
+    <h2 id="review-panel-title">Reviews</h2>
+    <button class="review-panel-close" onclick="closeReviewPanel()">×</button>
+  </div>
+  <div id="review-panel-body"><p>Loading...</p></div>
+  <div class="review-panel-form">
+    <h3>Leave a review</h3>
+    <input id="review-display-name" placeholder="Your name (optional)" maxlength="50" />
+    <textarea id="review-text" placeholder="Write your review..." maxlength="1000"></textarea>
+    <button class="submit-review-btn" onclick="submitReview()">Post review</button>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> <!-- Import leaflet -->
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script> <!-- Import open source routing -->
+<!-- Refactored Code into single JS files for better & cleaner code execution -->
+<script src="{{ url_for('static', filename='js/functions/favorite.js') }}"></script>
+<script src="{{ url_for('static', filename='js/map.js') }}"></script>\
+<script src="{{ url_for('static', filename='js/functions/rating.js') }}"></script>
+<script src="{{ url_for('static', filename='js/functions/sidebar.js') }}"></script>
+<script src="{{ url_for('static', filename='js/routing.js') }}"></script>
+<script src="{{ url_for('static', filename='js/functions/menu.js') }}"></script>
+<script src="{{ url_for('static', filename='js/functions/calculator.js') }}"></script>
+<script src="{{ url_for('static', filename='js/functions/location.js') }}"></script>   
+<script src="{{ url_for('static', filename='js/functions/rating.js') }}"></script>   
+<script src="{{ url_for('static', filename='js/functions/reviews.js') }}"></script>   
 {%endblock%}
