@@ -1,5 +1,5 @@
 from truckfinder import app, db
-from truckfinder.models import FoodTruck, MenuItem, FoodTruckHours, TruckRating, SubmittedTruck
+from truckfinder.models import FoodTruck, MenuItem, FoodTruckHours, TruckRating, SubmittedTruck, TruckReview
 from flask import render_template, url_for, request, redirect
 from flask import jsonify
 from datetime import datetime
