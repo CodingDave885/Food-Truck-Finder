@@ -205,3 +205,75 @@ def delete_truck_rating(truck_id):
     total = len(all_ratings)
     avg = round(sum(r.stars for r in all_ratings) / total, 2) if total > 0 else 0
     return jsonify({ "avg_rating": avg, "total_ratings": total })
+
+# Review Routes | Author : Andre Nunes da Silva @ 04/20/26
+
+# Same map page, but pre-loads a specific truck's reviews in an overlay
+@app.route('/map/reviews/<int:truck_id>')
+def map_with_reviews(truck_id):
+    return render_template('Map.html', title="Map", open_reviews_for=truck_id)
+
+@app.route('/api/trucks/<int:truck_id>/reviews', methods=['GET']) # This method returns all reviews, for a given truck
+def get_truck_reviews(truck_id):
+    reviews = TruckReview.query.filter_by(truck_id=truck_id)\
+        .order_by(TruckReview.created_at.desc()).all()
+    
+    ratings_data = { # Joined the ratings route data into the reviews route.
+        r.user_id: r.stars
+        for r in TruckRating.query.filter_by(truck_id=truck_id).all()
+    }
+
+    # Author: Andre Nunes da Silva @ 04/20/26
+    # Added stars to the review payload so the FE can actually display the user's star rating next to their review.
+    # Was using ratings_data above but forgot to pipe it through, which made every review show 0 stars on the panel.
+    data = [{
+        "id": r.id,
+        "user_id": r.user_id,
+        "display_name": r.display_name or "Anonymous",
+        "review_text": r.review_text,
+        "stars": ratings_data.get(r.user_id, 0),
+        "created_at": r.created_at.isoformat() if r.created_at else None
+    } for r in reviews]
+    return jsonify({"reviews": data, "total": len(data)})
+
+# POST TRUCK REVIEWS
+
+@app.route('/api/trucks/<int:truck_id>/review', methods=['POST']) # after it gets, it uses the first route, when it hits post (when a user sends a review, it uses this route)
+
+def post_truck_review(truck_id):
+    body = request.get_json() or {}
+    user_id = body.get('user_id')
+    review_text = (body.get('review_text') or "").strip()
+    display_name = (body.get('display_name') or "").strip() or None
+
+    if not user_id or not review_text:
+        return jsonify({"error": "user_id and review_text are REQUIRED"}), 400
+    if len(review_text) > 1000:
+        return jsonify({"error": "Review is too long, maximum 1000 characters."}), 400
+    
+    existing = TruckReview.query.filter_by(truck_id=truck_id, user_id=user_id).first()
+    if existing:
+        existing.review_text = review_text
+        existing.display_name = display_name
+    else:
+        db.session.add(TruckReview(
+            truck_id=truck_id,
+            user_id=user_id,
+            review_text=review_text,
+            display_name=display_name
+        ))
+    db.session.commit()
+    return jsonify({"success": True})
+
+# Delete, also grabs post
+@app.route('/api/trucks/<int:truck_id>/review/delete', methods=['POST'])
+def delete_truck_review(truck_id):
+    body = request.get_json() or {}
+    user_id = body.get("user_id")
+    if not user_id:
+        return jsonify({"error": "user_id is required"}), 400
+    existing = TruckReview.query.filter_by(truck_id=truck_id, user_id=user_id).first()
+    if existing:
+        db.session.delete(existing)
+        db.session.commit()
+    return jsonify({"success": True})
