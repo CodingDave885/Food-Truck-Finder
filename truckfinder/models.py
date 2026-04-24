@@ -21,6 +21,9 @@ class FoodTruck(db.Model):
     # This is done because one truck can have multiple closing times
     hours = db.relationship('FoodTruckHours', backref="truck", lazy=True)
 
+    # David Liberatore
+    # 4 / 24 / 2026
+    # Adds Str Method BC it uses that method for the admin page
     def __str__(self):
         return f"{self.name}"
 
@@ -62,6 +65,9 @@ class FoodTruckHours(db.Model):
     open_time = db.Column(Time, nullable=False)
     close_time = db.Column(Time, nullable=False)
 
+    # David Liberatore
+    # 4 / 24 / 2026
+    # Adds Str Method BC it uses that method
     def __str__(self):
         match self.day_of_week:
             case 0:
@@ -91,6 +97,9 @@ class MenuItem(db.Model):
     # This links to teh Food Truck database, basically allows you to query all food that belong to truck
     food_truck_id = db.Column(db.Integer, db.ForeignKey('food_truck.id'), nullable=False)
 
+    # David Liberatore
+    # 4 / 24 / 2026
+    # Adds Str Method BC it uses that method
     def __str__(self):
         return f"{self.name}"
 
