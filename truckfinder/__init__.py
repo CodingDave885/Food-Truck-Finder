@@ -15,7 +15,9 @@ babel = Babel(app)
 
 from truckfinder.models import FoodTruck, MenuItem, FoodTruckHours, SubmittedTruck
 
-# 3. Setup Admin
+# David Liberatore
+# 4/24/2026
+# Adds different pages for the admin page
 admin = Admin(app, name="Admin Dashboard")
 
 admin.add_view(ModelView(FoodTruck, db.session))
