@@ -21,6 +21,9 @@ class FoodTruck(db.Model):
     # This is done because one truck can have multiple closing times
     hours = db.relationship('FoodTruckHours', backref="truck", lazy=True)
 
+    def __str__(self):
+        return f"{self.name}"
+
 # Stores one rating per user per truck in the database
 # Each row represents a single user's star rating for a specific food truck
 class TruckRating(db.Model):
@@ -59,6 +62,26 @@ class FoodTruckHours(db.Model):
     open_time = db.Column(Time, nullable=False)
     close_time = db.Column(Time, nullable=False)
 
+    def __str__(self):
+        match self.day_of_week:
+            case 0:
+                return f"{self.open_time} - {self.close_time} on Monday"
+            case 1:
+                return f"{self.open_time} - {self.close_time} on Tuesday"
+            case 2:
+                return f"{self.open_time} - {self.close_time} on Wednesday"
+            case 3:
+                return f"{self.open_time} - {self.close_time} on Thursday"
+            case 4:
+                return f"{self.open_time} - {self.close_time} on Friday"
+            case 5:
+                return f"{self.open_time} - {self.close_time} on Saturday"
+            case 6:
+                return f"{self.open_time} - {self.close_time} on Sunday"
+            case _:
+                return "ERROR"
+
+
 class MenuItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     # Name of Menu Item
@@ -68,6 +91,9 @@ class MenuItem(db.Model):
     # This links to teh Food Truck database, basically allows you to query all food that belong to truck
     food_truck_id = db.Column(db.Integer, db.ForeignKey('food_truck.id'), nullable=False)
 
+    def __str__(self):
+        return f"{self.name}"
+
 class SubmittedTruck(db.Model):
     __tablename__ = "submitted_trucks"
 
@@ -75,4 +101,5 @@ class SubmittedTruck(db.Model):
     name = db.Column(db.String(100))
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
+    is_approved = db.Column(db.Boolean, default=False)
 
