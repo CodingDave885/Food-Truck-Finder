@@ -33,7 +33,7 @@ Follow these steps to run this project locally
 1. Clone Repository
 
 ```bash
-git clone <https://gitlab.cci.drexel.edu/cid/2526/ws1023/62/gc3/drexel-food-truck-interactive-map.git>
+git clone https://gitlab.cci.drexel.edu/cid/2526/ws1023/62/gc3/drexel-food-truck-interactive-map.git
 cd drexel-food-truck-interactive-map
 ```
 
