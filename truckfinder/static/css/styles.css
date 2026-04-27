@@ -67,7 +67,7 @@ nav {
   background: rgba(255, 255, 255, 0.05);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
-  margin-bottom: 2rem;
+  margin-bottom: 0;
 
   display: flex;
   align-items: center;
@@ -85,7 +85,7 @@ nav {
 .light .logo {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #2563eb;
+  color: #004B49;
   letter-spacing: 1px;
 }
 
@@ -143,12 +143,12 @@ nav {
 }
 
 .light .nav-links li a.active {
-  color: #2563eb;
+  color: #004B49;
   text-shadow: none;
 }
 
 .light .nav-links li a.active::after {
-  background: #2563eb;
+  background: #004B49;
 }
 
 .span-container {
@@ -2074,4 +2074,64 @@ input:focus {
 
 .light .review-panel-body > p {
     color: rgba(0, 0, 0, 0.5);
+}
+
+/* ─── Sidebar Light Mode Overrides ──────────────────────────────────────── */
+
+/* Main sidebar background */
+/* ─── Sidebar Light Mode Overrides ──────────────────────────────────────── */
+
+body.light #sidePanel {
+  background: #ffffff;
+  border-right: 3px solid #004B49;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.08);
+}
+
+body.light #sidePanel h2 {
+  background: linear-gradient(135deg, #004B49, #006b68);
+  color: #ffffff;
+  border-bottom: 2px solid #fbe331;
+}
+
+body.light .sidebar-tabs {
+  background: #004B49;
+}
+
+body.light .tab-btn.active {
+  color: #ffffff;
+  border-bottom: 3px solid #fbe331;
+}
+
+body.light .tab-btn {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+body.light .tab-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+body.light .truck-btn {
+  color: #1a1a2e;
+  border-bottom: 1px solid rgba(0, 75, 73, 0.12);
+  background: transparent;
+}
+
+body.light .truck-btn:hover {
+  background: #004B49;
+  color: #ffffff;
+}
+
+body.light #togglePanel {
+  background: #004B49;
+  color: #ffffff;
+}
+
+body.light #togglePanel:hover {
+  background: #003735;
+  color: #fbe331;
+}
+
+body.light #truckList::-webkit-scrollbar-thumb {
+  background: #004B49;
 }
