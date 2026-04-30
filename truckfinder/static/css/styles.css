@@ -62,8 +62,6 @@ body::before {
 }
 
 nav {
-  position: fixed;
-  top: 0;
   width: 100%;
   padding: 1.25rem 5%;
   background: rgba(255, 255, 255, 0.05);
@@ -186,6 +184,7 @@ nav {
 
 .hero {
   min-height: 80vh;
+  width: 100%;
   max-width: 1100px;
   margin: 0 auto;
 
@@ -1135,6 +1134,7 @@ footer a:hover {
   border-top: 1px solid rgba(41, 41, 41, 0.25);
   padding: 120px 40px 100px;
   text-align: center;
+  width: 100%;
 }
 
 .label {
