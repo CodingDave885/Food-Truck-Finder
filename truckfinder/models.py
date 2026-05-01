@@ -8,7 +8,7 @@ class FoodTruck(db.Model):
     # Name of food truck
     name = db.Column(db.String(100), nullable=False)
     # This is cuisine of the truck
-    cuisine = db.Column(db.String(100))
+    cuisine = db.Column(db.String(100), nullable=True)
     # Lat and Long for the Leaflet map
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
@@ -20,6 +20,8 @@ class FoodTruck(db.Model):
     # This sets a relation between hours and Food Trucks
     # This is done because one truck can have multiple closing times
     hours = db.relationship('FoodTruckHours', backref="truck", lazy=True)
+    # Sees if truck is hidden on map
+    is_hidden = db.Column(db.Boolean, default=True)
 
     # David Liberatore
     # 4 / 24 / 2026
@@ -111,4 +113,5 @@ class SubmittedTruck(db.Model):
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
     is_approved = db.Column(db.Boolean, default=False)
+    merged = db.Column(db.Boolean, default=False)
 
