@@ -1,31 +1,25 @@
-from truckfinder import app, db
+from flask import Blueprint, render_template, url_for, request, redirect, jsonify
+from truckfinder import db
 from truckfinder.models import FoodTruck, MenuItem, FoodTruckHours, TruckRating, SubmittedTruck, TruckReview
-from flask import render_template, url_for, request, redirect
-from flask import jsonify
 from datetime import datetime
 from truckfinder.forms import FoodTruckForm
 
-
+bp = Blueprint('main', __name__)
 # These routes connect to each html page, to make the path
 # simpler and more professional than html files
-@app.route("/")
+@bp.route("/")
 def home():
     return render_template("home.html", title="Home")
 
-@app.route('/map')
+@bp.route('/map')
 def map_page():
     return render_template('Map.html', title="Map")
 
-@app.route('/about')
+@bp.route('/about')
 def about():
     return render_template('About.html', title="About")
 
-# This route leads you to Alex's page that he made saying food truck information
-@app.route("/helper")
-def info():
-    return render_template("TruckItemsRaw.html")
-
-@app.route("/userForm", methods=["GET", "POST"])
+@bp.route("/userForm", methods=["GET", "POST"])
 def userForm():
     form = FoodTruckForm()
 
@@ -39,13 +33,13 @@ def userForm():
         db.session.add(new_truck)
         db.session.commit()
 
-        return redirect(url_for("home"))
+        return redirect(url_for("main.home"))
 
     return render_template("userForm.html", form=form)
 
 # This is just for development stages
 # Gets rid of all submissions
-@app.route("/reset_submissions")
+@bp.route("/reset_submissions")
 def reset_submissions():
     SubmittedTruck.query.delete()
     db.session.commit()
@@ -54,7 +48,7 @@ def reset_submissions():
 # This route is used as a helper route
 # This is only called by the JavaScript in the main page
 # It uses this rout to basically query all the truck data
-@app.route("/api/food_trucks")
+@bp.route("/api/food_trucks")
 def get_food_trucks():
     # This gets the time that it currently is
     now = datetime.now()
@@ -63,7 +57,7 @@ def get_food_trucks():
     today = now.weekday()
 
     # This line gets all the trucks in the db
-    trucks = FoodTruck.query.all()
+    trucks = FoodTruck.query.filter_by(is_hidden=False).all()
     # Makes a list to store this data
     data = []
 
@@ -114,9 +108,43 @@ def get_food_trucks():
     # Jsonify however does not make a new file, and is only made over the browser
     # After it is made the program instantly forgets it after it is used
     return jsonify(data)
+# David Liberatore
+# 5/1/2026
+# These are the routes used for the admin pages
+# This returns all the submitted trucks data
+@bp.route("/api/submitted_trucks")
+def get_submitted_trucks():
+    trucks = SubmittedTruck.query.all()
+    data = []
+    for truck in trucks:
+        data.append({
+            "id": truck.id,
+            "name": truck.name,
+            "latitude": truck.latitude,
+            "longitude": truck.longitude,
+            "is_approved": truck.is_approved
+        })
+    # Returns as a json file
+    return jsonify(data)
+
+# Sees all the trucks in the main foodtrucks
+@bp.route("/api/food_trucks_admin")
+def get_food_trucks_admin():
+    trucks = FoodTruck.query.all()  # no is_hidden filter
+    data = []
+    for truck in trucks:
+        data.append({
+            "id": truck.id,
+            "name": truck.name,
+            "latitude": truck.latitude,
+            "longitude": truck.longitude,
+            "is_hidden": truck.is_hidden,
+            "is_open": False  # simplified for admin view
+        })
+    return jsonify(data)
 
 # This route works similarly to the food_truck route
-@app.route("/api/trucks/<int:truck_id>/menu")
+@bp.route("/api/trucks/<int:truck_id>/menu")
 def get_truck_menu(truck_id):
     # This gets the food truck with the specific menu
     # Saves this data into a variable
@@ -165,14 +193,14 @@ def is_truck_open(hours_row, now=None):
     return current_time >= open_time or current_time <= close_time
 
 
-@app.route('/api/trucks/<int:truck_id>/rating', methods=['GET'])
+@bp.route('/api/trucks/<int:truck_id>/rating', methods=['GET'])
 def get_truck_rating(truck_id):
     ratings = TruckRating.query.filter_by(truck_id=truck_id).all()
     total = len(ratings)
     avg = round(sum(r.stars for r in ratings) / total, 2) if total > 0 else 0
     return jsonify({ "avg_rating": avg, "total_ratings": total })
 
-@app.route('/api/trucks/<int:truck_id>/rating', methods=['POST'])
+@bp.route('/api/trucks/<int:truck_id>/rating', methods=['POST'])
 def post_truck_rating(truck_id):
     body    = request.get_json()
     user_id = body.get("user_id")
@@ -193,7 +221,7 @@ def post_truck_rating(truck_id):
     avg = round(sum(r.stars for r in all_ratings) / total, 2)
     return jsonify({ "avg_rating": avg, "total_ratings": total })
 
-@app.route('/api/trucks/<int:truck_id>/rating/delete', methods=['POST'])
+@bp.route('/api/trucks/<int:truck_id>/rating/delete', methods=['POST'])
 def delete_truck_rating(truck_id):
     body = request.get_json()
     user_id = body.get("user_id")
@@ -209,11 +237,11 @@ def delete_truck_rating(truck_id):
 # Review Routes | Author : Andre Nunes da Silva @ 04/20/26
 
 # Same map page, but pre-loads a specific truck's reviews in an overlay
-@app.route('/map/reviews/<int:truck_id>')
+@bp.route('/map/reviews/<int:truck_id>')
 def map_with_reviews(truck_id):
     return render_template('Map.html', title="Map", open_reviews_for=truck_id)
 
-@app.route('/api/trucks/<int:truck_id>/reviews', methods=['GET']) # This method returns all reviews, for a given truck
+@bp.route('/api/trucks/<int:truck_id>/reviews', methods=['GET']) # This method returns all reviews, for a given truck
 def get_truck_reviews(truck_id):
     reviews = TruckReview.query.filter_by(truck_id=truck_id)\
         .order_by(TruckReview.created_at.desc()).all()
@@ -238,7 +266,7 @@ def get_truck_reviews(truck_id):
 
 # POST TRUCK REVIEWS
 
-@app.route('/api/trucks/<int:truck_id>/review', methods=['POST']) # after it gets, it uses the first route, when it hits post (when a user sends a review, it uses this route)
+@bp.route('/api/trucks/<int:truck_id>/review', methods=['POST']) # after it gets, it uses the first route, when it hits post (when a user sends a review, it uses this route)
 
 def post_truck_review(truck_id):
     body = request.get_json() or {}
@@ -266,7 +294,7 @@ def post_truck_review(truck_id):
     return jsonify({"success": True})
 
 # Delete, also grabs post
-@app.route('/api/trucks/<int:truck_id>/review/delete', methods=['POST'])
+@bp.route('/api/trucks/<int:truck_id>/review/delete', methods=['POST'])
 def delete_truck_review(truck_id):
     body = request.get_json() or {}
     user_id = body.get("user_id")
