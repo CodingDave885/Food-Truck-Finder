@@ -2299,3 +2299,20 @@ body.light .filter-pill.active {
 body.light #clear-filters {
     color: #fbe331;
 }
+#clear-search {
+  display: none;
+}
+#sidePanel {
+  overflow: hidden;
+}
+
+#search-input-wrapper {
+  position: relative;   /* THIS fixes the X position */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#search-container {
+  width: 100%;
+  box-sizing: border-box;
+}

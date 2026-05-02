@@ -11,11 +11,14 @@
 <!-- Sidebar -->
 <div id="sidePanel">
     <h2>Food Trucks</h2>
+    <!-- Author: Maisha Sultana 5/2/2026 -->
+    <!-- Sidebar tab buttons — switches between All Trucks and Favorites view -->
     <div class="sidebar-tabs">
       <button class="tab-btn active" onclick="switchTab('all', this)">All Trucks</button>
       <button class="tab-btn" onclick="switchTab('favorites', this)">Favorites</button>
   </div>
   <div id="search-container">
+        <!-- Search input row — magnifying glass icon, text input, and clear button -->
       <div id="search-input-wrapper">
           <i class="fas fa-search" id="search-icon"></i>
           <input type="text" id="truckSearch" placeholder="Search trucks..." />
@@ -34,8 +37,9 @@
       </div>
   </div>
   <div id="truckList"></div>
-<!--
-This is the menu panel that is used for the menu
+</div> 
+
+<!-- This is the menu panel that is used for the menu
 It is invisible at first, and then become visible when
 you ask for it when you are on the food truck
 -->

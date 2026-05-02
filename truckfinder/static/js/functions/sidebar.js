@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Author: Maisha Sultana, 5/2/2026 — Added search bar, filter pills, and category filtering
 
     searchInput.addEventListener("input", () => {
+        document.getElementById("clear-search").style.display = searchInput.value ? "block" : "none";
         applyFilters();
     });
     
@@ -62,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     window.clearSearch = function() {
         searchInput.value = "";
+        document.getElementById("clear-search").style.display = "none";
         applyFilters();
     }
     
