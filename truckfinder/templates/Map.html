@@ -11,14 +11,35 @@
 <!-- Sidebar -->
 <div id="sidePanel">
     <h2>Food Trucks</h2>
+    <!-- Author: Maisha Sultana 5/2/2026 -->
+    <!-- Sidebar tab buttons — switches between All Trucks and Favorites view -->
     <div class="sidebar-tabs">
-        <button class="tab-btn active" onclick="switchTab('all', this)">All Trucks</button>
-        <button class="tab-btn" onclick="switchTab('favorites', this)">Favorites</button>
-    </div>
-    <div id="truckList"></div>
-</div>
-<!--
-This is the menu panel that is used for the menu
+      <button class="tab-btn active" onclick="switchTab('all', this)">All Trucks</button>
+      <button class="tab-btn" onclick="switchTab('favorites', this)">Favorites</button>
+  </div>
+  <div id="search-container">
+        <!-- Search input row — magnifying glass icon, text input, and clear button -->
+      <div id="search-input-wrapper">
+          <i class="fas fa-search" id="search-icon"></i>
+          <input type="text" id="truckSearch" placeholder="Search trucks..." />
+          <button id="clear-search" onclick="clearSearch()">✕</button>
+      </div>
+      <div id="filter-pills">
+          <button class="filter-pill active" onclick="filterByCategory('all', this)">All</button>
+          <button class="filter-pill" onclick="filterByCategory('chicken', this)">🍗 Chicken</button>
+          <button class="filter-pill" onclick="filterByCategory('halal', this)">✅ Halal</button>
+          <button class="filter-pill" onclick="filterByCategory('drinks', this)">🧋 Drinks</button>
+          <button class="filter-pill" onclick="filterByCategory('fast food', this)">🍔 Fast Food</button>
+      </div>
+      <div id="filter-status">
+          <span id="filter-label">✨ Showing all trucks</span>
+          <button id="clear-filters" onclick="clearFilters()">Clear filters</button>
+      </div>
+  </div>
+  <div id="truckList"></div>
+</div> 
+
+<!-- This is the menu panel that is used for the menu
 It is invisible at first, and then become visible when
 you ask for it when you are on the food truck
 -->
@@ -72,6 +93,5 @@ The menu panel makes a container for the side panel
 <script src="{{ url_for('static', filename='js/functions/menu.js') }}"></script>
 <script src="{{ url_for('static', filename='js/functions/calculator.js') }}"></script>
 <script src="{{ url_for('static', filename='js/functions/location.js') }}"></script>   
-<script src="{{ url_for('static', filename='js/functions/rating.js') }}"></script>    
 <script src="{{ url_for('static', filename='js/functions/reviews.js') }}"></script>
 {%endblock%}
