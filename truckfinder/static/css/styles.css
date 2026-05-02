@@ -1656,7 +1656,8 @@ input:focus {
   box-shadow: 0 0 5px rgba(0,123,255,0.5);
 }
 
-/* ─── Review panel | Andre Nunes da Silva 04/20/26 ─────────────────────── */
+/* Author: Maisha Sultana */
+/* ─── Review panel | Andre Nunes da Silva 04/20/26 */
 
 .review-panel {
     color: #f4f4ed;
@@ -2078,10 +2079,11 @@ input:focus {
     color: rgba(0, 0, 0, 0.5);
 }
 
-/* ─── Sidebar Light Mode Overrides ──────────────────────────────────────── */
+/* Author: Maisha Sultana */
 
+/* Sidebar Light Mode Overrides */
 /* Main sidebar background */
-/* ─── Sidebar Light Mode Overrides ──────────────────────────────────────── */
+/* Sidebar Light Mode Overrides*/
 
 body.light #sidePanel {
   background: #ffffff;
@@ -2136,4 +2138,164 @@ body.light #togglePanel:hover {
 
 body.light #truckList::-webkit-scrollbar-thumb {
   background: #004B49;
+}
+
+/* Author: Maisha Sultana 5/2/2026 */
+/* Sidebar Search Bar */
+
+/* Wraps the entire search and filter section inside the sidebar
+   Uses flex column layout to stack the search input, pills, and status row */
+   #search-container {
+    padding: 12px 14px;
+    background: #0a3a6e;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* White rounded row that contains the search icon, input, and clear button */
+#search-input-wrapper {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 8px 12px;
+    gap: 8px;
+}
+
+/* Magnifying glass icon on the left of the search input */
+#search-icon {
+    color: #888;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+/* The actual text input field — takes up all available space in the row */
+#truckSearch {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 0.9rem;
+    font-family: "Manrope", sans-serif;
+    background: transparent;
+    color: #1a1a2e;
+}
+
+/* Placeholder text color inside the search input */
+#truckSearch::placeholder {
+    color: #aaa;
+}
+
+/* The ✕ clear button on the right of the search input */
+#clear-search {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #aaa;
+    font-size: 0.85rem;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+/* Clear button turns red on hover to signal it will clear the input */
+#clear-search:hover {
+    color: #e74c3c;
+}
+
+/* Filter Pills Row */
+
+/* Horizontal scrollable row of category filter pills
+   overflow-x allows pills to scroll if they overflow the sidebar width */
+#filter-pills {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none; /* hides scrollbar on Firefox */
+}
+
+/* Hides the scrollbar on Chrome and Safari */
+#filter-pills::-webkit-scrollbar {
+    display: none;
+}
+
+/* Individual filter pill button — rounded outline style by default */
+.filter-pill {
+    flex-shrink: 0;
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: "Manrope", sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap; /* prevents pill text from wrapping to a new line */
+}
+
+/* Pill hover state — slightly brighter background */
+.filter-pill:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+/* Active pill — solid white background with dark text to show it is selected */
+.filter-pill.active {
+    background: #ffffff;
+    color: #0a3a6e;
+    border-color: #ffffff;
+}
+
+/* Filter Status Row */
+
+/* Row below the pills showing how many trucks are visible and a clear button */
+#filter-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+}
+
+/* "Showing X trucks" label — updated dynamically by applyFilters() in sidebar.js */
+#filter-label {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* "Clear filters" button — resets search and pills back to default */
+#clear-filters {
+    background: none;
+    border: none;
+    color: #fbe331;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: "Manrope", sans-serif;
+    padding: 0;
+}
+
+/* Underline on hover to signal it is clickable */
+#clear-filters:hover {
+    text-decoration: underline;
+}
+
+/* Light Mode Overrides  */
+
+/* Search container background switches to Deep Jungle Green in light mode */
+body.light #search-container {
+    background: #004B49;
+}
+
+/* Active pill uses white background with jungle green text in light mode */
+body.light .filter-pill.active {
+    background: #ffffff;
+    color: #004B49;
+    border-color: #ffffff;
+}
+
+/* Clear filters button stays yellow in light mode */
+body.light #clear-filters {
+    color: #fbe331;
 }
