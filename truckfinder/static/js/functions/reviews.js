@@ -69,6 +69,11 @@ function renderReviewsInto(containerId, reviews) {
         const deleteBtn = isMine && truckId
             ? `<button class="delete-review-btn" onclick="deleteMyReview(${truckId})" title="Delete your review">Delete</button>`
             : "";
+        // escapeHtml handles attribute values too (textContent → innerHTML),
+        // so user-uploaded image URLs can't break out of the src attribute.
+        const imageBlock = r.image_url
+            ? `<a href="${escapeHtml(r.image_url)}" target="_blank" rel="noopener" class="review-image-link"><img class="review-image" src="${escapeHtml(r.image_url)}" alt="Review image" loading="lazy" /></a>`
+            : "";
         return `
             <div class="review-card${isMine ? ' is-mine' : ''}">
                 <div class="review-header">
@@ -76,6 +81,7 @@ function renderReviewsInto(containerId, reviews) {
                     <span class="review-stars">${starStr}</span>
                 </div>
                 <p>${escapeHtml(r.review_text)}</p>
+                ${imageBlock}
                 <div class="review-footer">
                     <small>${date}</small>
                     ${deleteBtn}
@@ -83,6 +89,42 @@ function renderReviewsInto(containerId, reviews) {
             </div>
         `;
     }).join("");
+}
+
+// Author: Andre Nunes da Silva @ 05/02/26
+// Shows a thumbnail preview when the user picks an image so they can confirm
+// the right file before posting. Also enforces the same 5MB cap as the server
+// for a faster failure path.
+const REVIEW_IMAGE_MAX_BYTES = 5 * 1024 * 1024;
+
+function onReviewImagePicked(event) {
+    const input = event.target;
+    const file = input.files && input.files[0];
+    const preview = document.getElementById("review-image-preview");
+    const img = document.getElementById("review-image-preview-img");
+    if (!file) {
+        preview.classList.add("hidden");
+        img.src = "";
+        return;
+    }
+    if (file.size > REVIEW_IMAGE_MAX_BYTES) {
+        alert("Image is too large (max 5MB).");
+        input.value = "";
+        preview.classList.add("hidden");
+        img.src = "";
+        return;
+    }
+    img.src = URL.createObjectURL(file);
+    preview.classList.remove("hidden");
+}
+
+function clearReviewImage() {
+    const input = document.getElementById("review-image-input");
+    const preview = document.getElementById("review-image-preview");
+    const img = document.getElementById("review-image-preview-img");
+    if (input) input.value = "";
+    if (img) img.src = "";
+    if (preview) preview.classList.add("hidden");
 }
 
 // Deletes the current user's review for this truck. Also clears their rating
@@ -149,19 +191,27 @@ async function submitReview() {
         submitRating(truckId);
     }
 
+    // Author: Andre Nunes da Silva @ 05/02/26
+    // FormData lets us attach the optional image alongside the text fields.
+    // Don't set Content-Type manually — the browser fills in the multipart
+    // boundary automatically when we pass a FormData body.
+    const fd = new FormData();
+    fd.append("user_id", getUserId());
+    fd.append("review_text", reviewText);
+    fd.append("display_name", displayName);
+    const imageInput = document.getElementById("review-image-input");
+    const imageFile = imageInput && imageInput.files && imageInput.files[0];
+    if (imageFile) fd.append("image", imageFile);
+
     try {
         const res = await fetch(`/api/trucks/${truckId}/review`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                user_id: getUserId(),   // from rating.js
-                review_text: reviewText,
-                display_name: displayName
-            })
+            body: fd
         });
 
         if (res.ok) {
             document.getElementById("review-text").value = "";
+            clearReviewImage();
             // Refresh the list so the new review shows up immediately
             const fresh = await fetch(`/api/trucks/${truckId}/reviews`).then(r => r.json());
             renderReviewsInto("reviews-list", fresh.reviews);

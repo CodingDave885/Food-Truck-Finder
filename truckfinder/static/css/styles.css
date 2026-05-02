@@ -2316,3 +2316,109 @@ body.light #clear-filters {
   width: 100%;
   box-sizing: border-box;
 }
+
+/* Author: Andre Nunes da Silva @ 05/02/26 — review image attachment UI */
+.review-image-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 8px 0 12px;
+}
+
+#review-image-input {
+    display: none;
+}
+
+.review-image-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+    padding: 6px 12px;
+    border: 1px dashed rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    color: rgba(244, 244, 237, 0.85);
+    font-family: "Manrope", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.review-image-label:hover {
+    border-color: rgba(251, 227, 49, 0.7);
+    color: #fbe331;
+    background: rgba(251, 227, 49, 0.08);
+}
+
+.light .review-image-label {
+    color: #1a1a2e;
+    border-color: rgba(15, 77, 146, 0.4);
+}
+
+.light .review-image-label:hover {
+    color: #0f4d92;
+    border-color: rgba(15, 77, 146, 0.8);
+    background: rgba(15, 77, 146, 0.08);
+}
+
+.review-image-preview {
+    position: relative;
+    align-self: flex-start;
+    max-width: 160px;
+}
+
+.review-image-preview.hidden {
+    display: none;
+}
+
+.review-image-preview img {
+    display: block;
+    width: 100%;
+    max-height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.review-image-clear {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 22px;
+    height: 22px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    font-size: 0.9rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.review-image-clear:hover {
+    background: rgb(255, 86, 86);
+}
+
+.review-image {
+    display: block;
+    margin-top: 8px;
+    max-width: 100%;
+    max-height: 240px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.light .review-image {
+    border-color: rgba(15, 77, 146, 0.18);
+}
+
+.review-image-link {
+    display: inline-block;
+}

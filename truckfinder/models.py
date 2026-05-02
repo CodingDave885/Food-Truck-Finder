@@ -51,6 +51,8 @@ class TruckReview(db.Model):
     user_id = db.Column(db.String(64), nullable=False)
     review_text = db.Column(db.Text, nullable=False)
     display_name = db.Column(db.String(50), nullable=True)
+    # Optional uploaded image attached to the review (relative URL under /static).
+    image_url = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     __table_args__ = (db.UniqueConstraint('truck_id', 'user_id'),)
 
