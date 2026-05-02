@@ -1,8 +1,64 @@
-from flask import Blueprint, render_template, url_for, request, redirect, jsonify
+import os
+import uuid
+from flask import Blueprint, render_template, url_for, request, redirect, jsonify, current_app
+from werkzeug.utils import secure_filename
 from truckfinder import db
 from truckfinder.models import FoodTruck, MenuItem, FoodTruckHours, TruckRating, SubmittedTruck, TruckReview
 from datetime import datetime
 from truckfinder.forms import FoodTruckForm
+
+# Author: Andre Nunes da Silva @ 05/02/26
+# Optional image attachments on reviews. Limit to common web image formats and
+# cap size at ~5MB so users can't blow up the static folder with huge uploads.
+REVIEW_IMAGE_EXTS = {"png", "jpg", "jpeg", "gif", "webp"}
+REVIEW_IMAGE_MAX_BYTES = 5 * 1024 * 1024
+REVIEW_IMAGE_SUBPATH = os.path.join("uploads", "reviews")
+
+
+def _review_image_dir():
+    return os.path.join(current_app.static_folder, "uploads", "reviews")
+
+
+def _save_review_image(file_storage, truck_id, user_id):
+    # Returns the public URL (under /static) for the saved image, or None if no
+    # file was attached. Raises ValueError on validation issues so the caller
+    # can return a 400 with a user-facing message.
+    if not file_storage or not file_storage.filename:
+        return None
+
+    original = secure_filename(file_storage.filename)
+    ext = original.rsplit(".", 1)[-1].lower() if "." in original else ""
+    if ext not in REVIEW_IMAGE_EXTS:
+        raise ValueError("Unsupported image type. Use PNG, JPG, GIF, or WEBP.")
+
+    file_storage.stream.seek(0, os.SEEK_END)
+    size = file_storage.stream.tell()
+    file_storage.stream.seek(0)
+    if size > REVIEW_IMAGE_MAX_BYTES:
+        raise ValueError("Image is too large (max 5MB).")
+
+    upload_dir = _review_image_dir()
+    os.makedirs(upload_dir, exist_ok=True)
+    filename = f"{truck_id}_{user_id}_{uuid.uuid4().hex}.{ext}"
+    file_storage.save(os.path.join(upload_dir, filename))
+    return url_for("static", filename=f"uploads/reviews/{filename}")
+
+
+def _delete_review_image(image_url):
+    if not image_url:
+        return
+    # image_url looks like "/static/uploads/reviews/<file>" — strip the static
+    # prefix so we can resolve it against the configured static_folder.
+    prefix = "/static/"
+    if not image_url.startswith(prefix):
+        return
+    rel = image_url[len(prefix):]
+    path = os.path.join(current_app.static_folder, rel)
+    if os.path.isfile(path):
+        try:
+            os.remove(path)
+        except OSError:
+            pass
 
 bp = Blueprint('main', __name__)
 # These routes connect to each html page, to make the path
@@ -260,6 +316,7 @@ def get_truck_reviews(truck_id):
         "display_name": r.display_name or "Anonymous",
         "review_text": r.review_text,
         "stars": ratings_data.get(r.user_id, 0),
+        "image_url": r.image_url,
         "created_at": r.created_at.isoformat() if r.created_at else None
     } for r in reviews]
     return jsonify({"reviews": data, "total": len(data)})
@@ -269,26 +326,48 @@ def get_truck_reviews(truck_id):
 @bp.route('/api/trucks/<int:truck_id>/review', methods=['POST']) # after it gets, it uses the first route, when it hits post (when a user sends a review, it uses this route)
 
 def post_truck_review(truck_id):
-    body = request.get_json() or {}
-    user_id = body.get('user_id')
-    review_text = (body.get('review_text') or "").strip()
-    display_name = (body.get('display_name') or "").strip() or None
+    # Author: Andre Nunes da Silva @ 05/02/26
+    # Accept either JSON (legacy / no image) or multipart/form-data (when an
+    # image is attached). The frontend always uses FormData now, but keeping
+    # JSON support means we don't break any direct API callers.
+    if request.content_type and request.content_type.startswith("multipart/form-data"):
+        user_id = request.form.get("user_id")
+        review_text = (request.form.get("review_text") or "").strip()
+        display_name = (request.form.get("display_name") or "").strip() or None
+        image_file = request.files.get("image")
+    else:
+        body = request.get_json() or {}
+        user_id = body.get('user_id')
+        review_text = (body.get('review_text') or "").strip()
+        display_name = (body.get('display_name') or "").strip() or None
+        image_file = None
 
     if not user_id or not review_text:
         return jsonify({"error": "user_id and review_text are REQUIRED"}), 400
     if len(review_text) > 1000:
         return jsonify({"error": "Review is too long, maximum 1000 characters."}), 400
-    
+
+    try:
+        new_image_url = _save_review_image(image_file, truck_id, user_id)
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
+
     existing = TruckReview.query.filter_by(truck_id=truck_id, user_id=user_id).first()
     if existing:
         existing.review_text = review_text
         existing.display_name = display_name
+        # If a new image was attached, replace the old one on disk so we don't
+        # leak orphaned files. If no new image, keep the existing one.
+        if new_image_url:
+            _delete_review_image(existing.image_url)
+            existing.image_url = new_image_url
     else:
         db.session.add(TruckReview(
             truck_id=truck_id,
             user_id=user_id,
             review_text=review_text,
-            display_name=display_name
+            display_name=display_name,
+            image_url=new_image_url
         ))
     db.session.commit()
     return jsonify({"success": True})
@@ -302,6 +381,7 @@ def delete_truck_review(truck_id):
         return jsonify({"error": "user_id is required"}), 400
     existing = TruckReview.query.filter_by(truck_id=truck_id, user_id=user_id).first()
     if existing:
+        _delete_review_image(existing.image_url)
         db.session.delete(existing)
         db.session.commit()
     return jsonify({"success": True})

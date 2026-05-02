@@ -78,6 +78,16 @@ The menu panel makes a container for the side panel
     <h3>Leave a review</h3>
     <input id="review-display-name" placeholder="Your name (optional)" maxlength="50" />
     <textarea id="review-text" placeholder="Write your review..." maxlength="1000"></textarea>
+    <div class="review-image-row">
+      <label for="review-image-input" class="review-image-label">
+        <i class="fas fa-image"></i> Add Image
+      </label>
+      <input id="review-image-input" type="file" accept="image/png,image/jpeg,image/gif,image/webp" onchange="onReviewImagePicked(event)" />
+      <div id="review-image-preview" class="review-image-preview hidden">
+        <img id="review-image-preview-img" alt="Selected image preview" />
+        <button type="button" class="review-image-clear" onclick="clearReviewImage()" title="Remove image">×</button>
+      </div>
+    </div>
     <button class="submit-review-btn" onclick="submitReview()">Post review</button>
   </div>
 </div>
