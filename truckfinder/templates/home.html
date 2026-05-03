@@ -1,6 +1,5 @@
 {%extends "layout.html"%}
 {% block content %}
-    <div class="frosted-box">
   <div class="hero">
     <!--Builds the home page, where you find the welcome message-->
     <div class="hero-text">
@@ -17,7 +16,7 @@
       <br><br><p2>Well, we have a <u class="underline_class">solution</u>.</p2></br></br>
 
       <!--Creates the button to access the map on the home page-->
-      <form action="{{ url_for('map_page')}}">
+      <form action="{{ url_for('main.map_page')}}">
         <button type="submit" class="dark-btn">
           <i class="fas fa-arrow-right"></i>
           <span>Get Started</span>
@@ -37,7 +36,6 @@
     <i class="fa-solid fa-chevron-down"></i>
   </div>
 
-</div>
 
 <!-- Feature Cards | Authored: Andre Nunes da Silva | Start time @ 1:28PM 4 12 26-->
 <section class="features">
@@ -54,7 +52,7 @@
         </div>
         <h3>Find nearby trucks</h3>
         <p>See every food truck within your radius on our interactive map, track their location with one button and be there in minutes.</p>
-        <a href="{{ url_for('map_page') }}">Explore the map</a>
+        <a href="{{ url_for('main.map_page') }}">Explore the map</a>
     </div>
 
     <div class="middle">
@@ -63,11 +61,10 @@
         </div>
         <h3>Live locations</h3>
         <p>Track trucks and their location in real time. No more showing up and getting shown up.</p>
-        <a href="{{ url_for('map_page') }}">See live map</a>
+        <a href="{{ url_for('main.map_page') }}">See live map</a>
     </div>
 
      <div class="card">
-      <span class="pill-soon">Coming soon</span>
       <div class="reviews-card">
         <i class="fa-solid fa-star"></i>
       </div>

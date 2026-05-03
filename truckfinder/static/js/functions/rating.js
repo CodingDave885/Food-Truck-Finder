@@ -34,10 +34,24 @@ function removeUserRating(truckId) {
 // Injected into the popup when a truck marker is clicked
 // avgRating and totalRatings come from the backend
 function buildRatingWidget(truckId, avgRating, totalRatings) {
-    // Check if the user has already rated this truck
+    return `
+        <div class="rating-section">
+            <div class="rating-summary" style="justify-content: center;">
+                <span class="avg-score" id="avg-${truckId}">${avgRating > 0 ? parseFloat(avgRating).toFixed(1) : "—"}</span>
+                <span id="count-${truckId}">avg from ${totalRatings} rating${totalRatings !== 1 ? 's' : ''}</span>
+            </div>
+            <button class="see-reviews-btn" onclick="openReviewPanel(${truckId})">See reviews</button>
+        </div>`;
+} // Andre Nunes da Silva @ 4/20/26 : Updated so it doesn't show on the truck itself instead it will show inside the review panel.
+
+// Used inside the review panel — has interactive stars for rating, no "See reviews" button
+
+// Author: Andre Nunes da Silva @ 4/20/26
+// Stars are preview-only here on purpose — the rating is committed together with the review
+// via submitReview() so a user can't change their star rating without also writing/updating a review.
+function buildPanelRatingWidget(truckId, avgRating, totalRatings) {
     const userStars = getUserRating(truckId);
-    
-    // Build the 5 star buttons, marking previously selected stars as 'on'
+
     const starsHtml = [1,2,3,4,5].map(n => `
         <span class="star-btn ${n <= userStars ? 'on' : ''}"
             data-value="${n}"
@@ -47,11 +61,8 @@ function buildRatingWidget(truckId, avgRating, totalRatings) {
     return `
         <div class="rating-section">
             <div class="rate-label">Rate this truck</div>
-            <div class="star-row" id="stars-${truckId}">${starsHtml}</div>
-            <div class="rating-actions" id="actions-${truckId}" style="display:${userStars > 0 ? 'flex' : 'none'}">
-                <button class="submit-rating-btn" onclick="submitRating(${truckId})">Submit</button>
-                <button class="takeback-btn" onclick="takeBackRating(${truckId})">Clear</button>
-            </div>
+            <div class="star-row" id="stars-${truckId}" data-preview="${userStars}">${starsHtml}</div>
+            <div class="rating-hint">Your rating posts with your review below.</div>
             <div class="rating-summary">
                 <span class="avg-score" id="avg-${truckId}">${avgRating > 0 ? parseFloat(avgRating).toFixed(1) : "—"}</span>
                 <span id="count-${truckId}">avg from ${totalRatings} rating${totalRatings !== 1 ? 's' : ''}</span>
@@ -60,18 +71,16 @@ function buildRatingWidget(truckId, avgRating, totalRatings) {
 }
 
 // Called every time a user clicks a star
-// The rating is only saved when they hit Submit
+// The rating is only saved when the user posts their review (submitReview in reviews.js).
 function previewRating(truckId, stars) {
     const container = document.getElementById(`stars-${truckId}`);
-    if (container) {
-        container.querySelectorAll(".star-btn").forEach(btn => {
-            btn.classList.toggle("on", parseInt(btn.dataset.value) <= stars);
-        });
-    }
-    // Store preview temporarily
+    if (!container) return;
+    container.querySelectorAll(".star-btn").forEach(btn => {
+        btn.classList.toggle("on", parseInt(btn.dataset.value) <= stars);
+    });
     container.dataset.preview = stars;
 
-    // Show the Submit + Take back buttons
+    // Legacy standalone Submit/Clear actions may still exist in the truck popup widget — keep them working.
     const actions = document.getElementById(`actions-${truckId}`);
     if (actions) actions.style.display = "flex";
 }
