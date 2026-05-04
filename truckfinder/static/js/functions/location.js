@@ -1,13 +1,46 @@
 // File refactored on 04/07/26 @ 6:58 PM by Andre Nunes da Silva
 var slider = document.getElementById("distance");
 var lastDist = 100;
-let userMarker, accuracyCircle, userPos;
+let userMarker, accuracyCircle;
+
+window.SLIDER_METERS_PER_UNIT = 5.3645;
+
+window.sliderRadiusMeters = function () {
+    return Number(slider.value) * window.SLIDER_METERS_PER_UNIT;
+};
+
+window.sliderShowsAll = function () {
+    return Number(slider.value) === 100;
+};
+
+function updateSliderFill() {
+    const min = Number(slider.min) || 0;
+    const max = Number(slider.max) || 100;
+    const pct = ((Number(slider.value) - min) / (max - min)) * 100;
+    slider.style.setProperty("--slider-fill", pct + "%");
+}
+
+function updateDistanceLabel() {
+    const label = document.getElementById("distance-label");
+    if (!label) return;
+    if (window.sliderShowsAll()) {
+        label.textContent = "All trucks";
+        return;
+    }
+    const feet = Math.round(window.sliderRadiusMeters() * 3.28084);
+    label.textContent = feet < 1000
+        ? `Within ${feet} ft`
+        : `Within ${(feet / 5280).toFixed(2)} mi`;
+}
+
+updateSliderFill();
+updateDistanceLabel();
 
 //Runs when the users location is checked
 map.on('locationfound', (e) => {
     const radius = e.accuracy / 2;
     //Creates a pin for the user if not already there
-    userPos = [e.latitude, e.longitude]
+    window.userPos = [e.latitude, e.longitude];
     if (!userMarker) {
         userMarker = L.marker(e.latlng).addTo(map);
         accuracyCircle = L.circle(e.latlng, radius).addTo(map);
@@ -59,15 +92,16 @@ map.on('locationfound', (e) => {
     }
 });
 
-var slider = document.getElementById("distance");
-
 slider.oninput = function() {
+    updateSliderFill();
+    updateDistanceLabel();
+    if (typeof window.applyFilters === "function") window.applyFilters();
     if (window.trucksLoaded && userMarker) {
         fetch("/api/food_trucks")
             .then(res => res.json())
             .then(trucks => {
                 trucks.forEach(truck => {
-                    if ((L.latLng(userPos).distanceTo([truck.latitude, truck.longitude]) < slider.value * 5.3645 || slider.value == 100)){
+                    if ((L.latLng(window.userPos).distanceTo([truck.latitude, truck.longitude]) < slider.value * 5.3645 || slider.value == 100)){
                         if (window.markers[truck.id].getPopup() == null){
                             window.markers[truck.id].bindPopup(`
                                 <div class="popup-header">

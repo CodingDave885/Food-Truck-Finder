@@ -39,13 +39,27 @@ document.addEventListener("DOMContentLoaded", () => {
     window.applyFilters = function() {
         const query = searchInput.value.toLowerCase().trim();
         const activeCategory = document.querySelector(".filter-pill.active")?.textContent.toLowerCase().replace(/[^a-z ]/g, "").trim();
+        const activeTabBtn = document.querySelector(".tab-btn.active");
+        const isFavoritesTab = activeTabBtn && activeTabBtn.textContent.toLowerCase().includes("favorites");
+        const favorites = JSON.parse(localStorage.getItem("favorites") || "[]").map(String);
+        const showAllDistances = typeof window.sliderShowsAll === "function" ? window.sliderShowsAll() : true;
+        const radiusM = typeof window.sliderRadiusMeters === "function" ? window.sliderRadiusMeters() : Infinity;
         let visibleCount = 0;
         truckList.querySelectorAll(".truck-btn").forEach(btn => {
             const name = btn.querySelector("span").textContent.toLowerCase();
             const category = (btn.dataset.category || "").toLowerCase();
             const matchesSearch = name.includes(query);
             const matchesCategory = activeCategory === "all" || category.includes(activeCategory);
-            if (matchesSearch && matchesCategory) {
+            const matchesTab = !isFavoritesTab || favorites.includes(btn.dataset.truckId);
+            let matchesDistance = true;
+            if (!showAllDistances && window.userPos) {
+                const lat = parseFloat(btn.dataset.lat);
+                const lng = parseFloat(btn.dataset.lng);
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    matchesDistance = L.latLng(window.userPos).distanceTo([lat, lng]) < radiusM;
+                }
+            }
+            if (matchesSearch && matchesCategory && matchesDistance && matchesTab) {
                 btn.style.display = "";
                 visibleCount++;
             } else {
@@ -81,19 +95,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Remove 'active' highlight from all tab buttons, then mark the clicked one
         document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
-
-        // Pull the saved favorites list from localStorage (default to empty array)
-        const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-
-        // Show or hide each truck button depending on the selected tab
-        truckList.querySelectorAll(".truck-btn").forEach(b => {
-            if (tab === "all") {
-                b.style.display = ""; // show every truck
-            } else {
-                // Only show trucks whose ID is in the favorites list
-                b.style.display = favorites.map(String).includes(b.dataset.truckId) ? "" : "none";
-            }
-        });
+        // Reapply unified filter — handles tab + search + category + distance together
+        applyFilters();
     };
 
     // Periodically check if the truck markers have been loaded
@@ -111,6 +114,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         btn.className = "truck-btn"; // add CSS class for styling
                         btn.dataset.truckId = truck.id; // needed for favorites filtering
                         btn.dataset.category = truck.cuisine || ""; // stores the truck's cuisine type on the button element so filter pills can match against it later
+                        btn.dataset.lat = truck.latitude;
+                        btn.dataset.lng = truck.longitude;
                         // Truck name label — displayed on the left side of the button
                         const nameSpan = document.createElement("span");
                         nameSpan.textContent = truck.name;
