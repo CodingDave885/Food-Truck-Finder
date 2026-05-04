@@ -12,12 +12,14 @@ const lightModeBox = document.getElementById("light-mode-box");
 function openMenuPanel() {
   menuPanel.classList.add("open");
   lightModeBox.classList.add("shifted");
+  document.getElementById("slider-box").classList.add("shifted");
 }
 
 // Removes the open class, goes back to default
 function closeMenuPanel() {
   menuPanel.classList.remove("open");
   lightModeBox.classList.remove("shifted");
+  document.getElementById("slider-box").classList.remove("shifted");
 }
 
 // When the user clicks the x, the panel closes
