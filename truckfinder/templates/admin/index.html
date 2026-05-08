@@ -30,6 +30,24 @@
     </div>
   </div>
 
+  <div class="card mt-4">
+  <div class="card-body">
+    <h5 class="card-title">Update CSV Files</h5>
+    <p class="card-text">
+      Exports the latest database data (food trucks, menu items, and hours) into CSV files.
+    </p>
+
+    <form method="POST" action="{{ url_for('.update_csv') }}"
+          onsubmit="return confirm('Update all CSV files from the current database?')">
+
+      <button type="submit" class="btn btn-primary">
+        📄 Update CSV Files
+      </button>
+
+    </form>
+  </div>
+</div>
+
   <!-- Minimap -->
   <div class="card mt-4">
     <div class="card-body">

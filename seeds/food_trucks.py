@@ -1,6 +1,8 @@
 import csv
-from truckfinder import app, db
+from truckfinder import create_app, db
 from truckfinder.models import FoodTruck
+
+app = create_app()
 
 def seed_food_trucks():
     # This is needed to use the db methods
@@ -18,7 +20,6 @@ def seed_food_trucks():
                     latitude=float(row["latitude"]),
                     longitude=float(row["longitude"]),
                     description=row["description"]
-
             )
                 # This loops through every CSV row, and skips every empty row
                 for row in reader

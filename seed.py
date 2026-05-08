@@ -1,7 +1,9 @@
-from truckfinder import app, db
+from truckfinder import create_app, db
 from seeds.food_trucks import seed_food_trucks
 from seeds.menu_items import seed_menu_items
 from seeds.food_truck_hours import seed_food_truck_hours
+
+app = create_app()
 
 # This is only ran if seed.py is the main file
 # This file is for updating our DB according to the csv file

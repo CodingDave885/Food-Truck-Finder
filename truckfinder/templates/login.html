@@ -1,0 +1,22 @@
+<!--
+David Liberatore
+5/8/2026
+Makes basic login page for admin to enter credentials
+-->
+
+{% extends 'layout.html' %}
+{% block content%}
+
+<form method="POST">
+
+    {{ form.hidden_tag() }}
+
+    {{ form.username.label }}
+    {{ form.username() }}
+    <br><br>
+    {{ form.password.label }}
+    {{ form.password() }}
+    <br>
+    {{ form.submit(class="my_btn") }}
+</form>
+{% endblock %}
