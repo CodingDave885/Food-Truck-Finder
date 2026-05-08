@@ -1,7 +1,9 @@
 import csv
 from datetime import datetime
-from truckfinder import app, db
+from truckfinder import create_app, db
 from truckfinder.models import FoodTruckHours
+
+app = create_app()
 
 def seed_food_truck_hours():
     # This is needed to use the db methods

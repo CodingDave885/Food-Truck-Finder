@@ -1,6 +1,7 @@
 from truckfinder import db
 from sqlalchemy import Time
 from datetime import datetime
+from flask_login import UserMixin
 
 class FoodTruck(db.Model):
     # This gives each food truck its own primary key
@@ -21,7 +22,7 @@ class FoodTruck(db.Model):
     # This is done because one truck can have multiple closing times
     hours = db.relationship('FoodTruckHours', backref="truck", lazy=True)
     # Sees if truck is hidden on map
-    is_hidden = db.Column(db.Boolean, default=True)
+    is_hidden = db.Column(db.Boolean, default=False)
 
     # David Liberatore
     # 4 / 24 / 2026
@@ -116,4 +117,16 @@ class SubmittedTruck(db.Model):
     longitude = db.Column(db.Float)
     is_approved = db.Column(db.Boolean, default=False)
     merged = db.Column(db.Boolean, default=False)
+
+"""
+David Liberatore
+5/8/2026
+This code makes the schema for an admin account
+"""
+class User(db.Model,UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    password_hash = db.Column(db.String(200), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
+
 
