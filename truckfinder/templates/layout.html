@@ -17,6 +17,8 @@
     <nav>
         <div class="logo">Foodtruck Finder</div>
         <ul class="nav-links">
+            <!-- Light/Dark mode toggle button — visible on all pages, functionality coming next sprint -->
+            <li><button id="mode-swap"><i class="fas fa-sun"></i></button></li>
             <li><a href="{{ url_for('main.home') }}">Home</a></li>
             <li><a href="{{ url_for('main.map_page')}}">Map</a></li>
             <li><a href="{{ url_for('main.about') }}">About</a></li>
