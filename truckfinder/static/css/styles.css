@@ -701,7 +701,7 @@ html {
 .team-section,
 .routing-instructions,
 .about-github,
-.hero-text form {
+.hero-text .hero-buttons {
   opacity: 0;
   animation: fadeInUp 0.8s ease-out forwards;
 }
@@ -722,7 +722,7 @@ html {
   animation-delay: 0.9s;
 }
 
-.hero-text form {
+.hero-text .hero-buttons {
   animation-delay: 1.2s;
 }
 
@@ -1555,6 +1555,13 @@ footer a:hover {
   color: rgba(0, 0, 0, 0.8);
 }
 
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
 .dark-btn {
   display: inline-flex;
   align-items: center;
@@ -1569,7 +1576,11 @@ footer a:hover {
   cursor: pointer;
   text-decoration: none;
   transition: background 0.2s ease, border-color 0.2s ease;
-  animation-delay: 0.5s;
+}
+
+.dark-btn i {
+  width: 14px;
+  text-align: center;
 }
 
 .dark-btn:hover {
@@ -2543,3 +2554,143 @@ nav {
   -webkit-appearance: none;
   appearance: none;
 }
+
+/* User Guide page | Author: Andre Nunes da Silva @ 05/10/26 */
+.user-guide {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 80px 24px 120px;
+  text-align: center;
+  color: #f4f4ed;
+}
+
+.guide-header {
+  margin-bottom: 72px;
+}
+
+.guide-eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #c7cee6;
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+
+.user-guide h1 {
+  font-size: 44px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  line-height: 1.15;
+}
+
+.guide-sub {
+  color: rgba(244, 244, 237, 0.65);
+  font-size: 17px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.guide-group-title {
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(244, 244, 237, 0.5);
+  font-weight: 500;
+  margin: 64px 0 8px;
+  position: relative;
+}
+
+.guide-group-title::before,
+.guide-group-title::after {
+  content: "";
+  display: inline-block;
+  width: 32px;
+  height: 1px;
+  background: rgba(244, 244, 237, 0.2);
+  vertical-align: middle;
+  margin: 0 14px;
+}
+
+.guide-group-sub {
+  color: rgba(244, 244, 237, 0.55);
+  font-size: 15px;
+  margin: 0 0 32px;
+}
+
+.guide-item {
+  padding: 36px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.guide-item:first-of-type {
+  border-top: none;
+}
+
+.guide-item h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.guide-item h3 i {
+  color: #c7cee6;
+  font-size: 18px;
+}
+
+.guide-item p {
+  color: rgba(244, 244, 237, 0.7);
+  font-size: 15px;
+  line-height: 1.75;
+  margin: 0 auto 12px;
+  max-width: 640px;
+}
+
+.guide-item p:last-child {
+  margin-bottom: 0;
+}
+
+.guide-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.guide-images img {
+  max-height: 90px;
+  width: auto;
+  opacity: 0.9;
+}
+
+/* Cascading fade-in on page load */
+.user-guide .guide-header,
+.user-guide .guide-group-title,
+.user-guide .guide-group-sub,
+.user-guide .guide-item {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.user-guide .guide-header { animation-delay: 0.05s; }
+.user-guide .guide-group-title { animation-delay: 0.15s; }
+.user-guide .guide-group-sub { animation-delay: 0.2s; }
+.user-guide .guide-item:nth-of-type(1) { animation-delay: 0.2s; }
+.user-guide .guide-item:nth-of-type(2) { animation-delay: 0.25s; }
+.user-guide .guide-item:nth-of-type(3) { animation-delay: 0.3s; }
+.user-guide .guide-item:nth-of-type(4) { animation-delay: 0.35s; }
+.user-guide .guide-item:nth-of-type(5) { animation-delay: 0.4s; }
+.user-guide .guide-item:nth-of-type(6) { animation-delay: 0.45s; }
+.user-guide .guide-item:nth-of-type(7) { animation-delay: 0.5s; }
+.user-guide .guide-item:nth-of-type(8) { animation-delay: 0.55s; }
+.user-guide .guide-item:nth-of-type(9) { animation-delay: 0.6s; }
+.user-guide .guide-item:nth-of-type(10) { animation-delay: 0.65s; }
