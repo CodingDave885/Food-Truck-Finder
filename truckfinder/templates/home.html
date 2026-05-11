@@ -15,13 +15,19 @@
       </p1>
       <br><br><p2>Well, we have a <u class="underline_class">solution</u>.</p2></br></br>
 
-      <!--Creates the button to access the map on the home page-->
-      <form action="{{ url_for('main.map_page')}}">
-        <button type="submit" class="dark-btn">
-          <i class="fas fa-arrow-right"></i>
-          <span>Get Started</span>
-        </button>
-      </form>
+      <!--Creates the buttons to access the map and user guide on the home page-->
+      <div class="hero-buttons">
+        <form action="{{ url_for('main.map_page')}}">
+          <button type="submit" class="dark-btn">
+            <i class="fas fa-arrow-right"></i>
+            <span>Get Started</span>
+          </button>
+        </form>
+        <a href="{{ url_for('main.guide') }}" class="dark-btn">
+          <i class="fa-solid fa-book-open"></i>
+          <span>User Guide</span>
+        </a>
+      </div>
     </div>
 
     <!--Food truck image-->

@@ -88,6 +88,11 @@ def map_page():
 def about():
     return render_template('About.html', title="About")
 
+# Andre Nunes da Silva : New route for user guide. 05/10/26
+@bp.route('/guide')
+def guide():
+    return render_template('userGuide.html', title="User Guide")
+
 @bp.route("/userForm", methods=["GET", "POST"])
 def userForm():
     form = FoodTruckForm()
