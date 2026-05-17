@@ -2387,7 +2387,7 @@ body.light #truckList::-webkit-scrollbar-thumb {
     text-decoration: underline;
 }
 
-/* Light Mode Overrides  */
+/* Light Mode Overrides  05/17/26 */ 
 
 /* Search container background switches to Deep Jungle Green in light mode */
 body.light #search-container {
@@ -2422,6 +2422,70 @@ body.light #clear-filters {
   width: 100%;
   box-sizing: border-box;
 }
+
+/* Light Mode — Home Page */
+
+body.light h1 {
+  color: #1a1a2e;
+}
+
+body.light p1,
+body.light p2 {
+  color: #1a1a2e;
+}
+
+body.light .highlight {
+  color: #D4600A;
+  text-shadow: none;
+}
+
+body.light .features-title {
+  color: #1a1a2e;
+}
+
+body.light .card h3,
+body.light .middle h3 {
+  color: #1a1a2e;
+}
+
+body.light .card p,
+body.light .middle p {
+  color: #444;
+}
+
+body.light .about-title {
+  color: #1a1a2e;
+}
+
+body.light .about-desc {
+  color: #444;
+}
+
+body.light .stat-number {
+  color: #D4600A;
+}
+
+body.light .stat-label {
+  color: #444;
+}
+
+body.light .dark-btn {
+  background: #1a1a2e;
+  color: #fff;
+  border-color: rgba(0,0,0,0.2);
+}
+
+body.light .about-section {
+  background: #FDF8F0;
+  border-color: rgba(0,0,0,0.1);
+}
+
+body.light .card,
+body.light .middle {
+  background: rgba(0,0,0,0.03);
+  border-color: rgba(0,0,0,0.1);
+}
+
 
 /* Author: Andre Nunes da Silva @ 05/02/26 — review image attachment UI */
 .review-image-row {
