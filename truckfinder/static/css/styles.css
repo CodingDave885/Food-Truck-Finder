@@ -3004,8 +3004,16 @@ nav {
   color: #f4f4ed;
 }
 
+.light .user-guide {
+  color: black;
+}
+
 .guide-header {
   margin-bottom: 72px;
+}
+
+.light .guide-header {
+  color: black;
 }
 
 .guide-eyebrow {
@@ -3020,6 +3028,10 @@ nav {
   margin-bottom: 20px;
 }
 
+.light .guide-eyebrow {
+  color: black;
+}
+
 .user-guide h1 {
   font-size: 44px;
   font-weight: 600;
@@ -3027,11 +3039,19 @@ nav {
   line-height: 1.15;
 }
 
+.light .user-guide h1 {
+  color: black;
+}
+
 .guide-sub {
   color: rgba(244, 244, 237, 0.65);
   font-size: 17px;
   line-height: 1.6;
   margin: 0;
+}
+
+.light .guide-sub {
+  color: black;
 }
 
 .guide-group-title {
@@ -3042,6 +3062,10 @@ nav {
   font-weight: 500;
   margin: 64px 0 8px;
   position: relative;
+}
+
+.light .guide-group-title {
+  color: black;
 }
 
 .guide-group-title::before,
@@ -3055,15 +3079,28 @@ nav {
   margin: 0 14px;
 }
 
+.light .guide-group-title::before,
+.light .guide-group-title::after {
+  background: black;
+}
+
 .guide-group-sub {
   color: rgba(244, 244, 237, 0.55);
   font-size: 15px;
   margin: 0 0 32px;
 }
 
+.light .guide-group-sub {
+  color: black;
+}
+
 .guide-item {
   padding: 36px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.light .guide-item {
+  color: black;
 }
 
 .guide-item:first-of-type {
@@ -3080,9 +3117,17 @@ nav {
   gap: 12px;
 }
 
+.light .guide-item h3 {
+  color: black;
+}
+
 .guide-item h3 i {
   color: #c7cee6;
   font-size: 18px;
+}
+
+.light .guide-item h3 i {
+  color: black;
 }
 
 .guide-item p {
@@ -3091,6 +3136,10 @@ nav {
   line-height: 1.75;
   margin: 0 auto 12px;
   max-width: 640px;
+}
+
+.light .guide-item p {
+  color: black;
 }
 
 .guide-item p:last-child {
